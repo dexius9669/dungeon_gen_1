@@ -5,25 +5,14 @@
 
 Открыть: https://dexius9669.github.io/pages/Dungeon_Gen.html
 
-## Что внутри
+## Что в репозитории
 
-- `src/engine/` — детерминированный PRNG (mulberry32) и табличная машина состояний.
-- `src/data/` — таблицы Буклетов 4/2/10 и «Stocking Monsters».
-- `src/ui/` — интерфейс; `build.py` собирает из модулей единый `Dungeon_Gen.html`.
-- `test/` — тесты: `rng`, `validate`, `flow`, `bundle`.
-- `tools/` — вспомогательные скрипты (OCR, превью).
-- `Booklet_2.txt`, `Random_Dungeon`, `Oracles`, `Stocking Monsters` — исходные тексты таблиц.
+- `Dungeon_Gen.html` — собранный генератор (самодостаточный, без внешних зависимостей).
+- `index.html` — редирект на генератор для корня сайта.
 - `LEGAL.md` — правовые уведомления и лицензия.
 
-## Сборка и тесты
-
-```bash
-python3 build.py
-node test/rng.test.js
-node test/validate.js
-node test/flow.test.js
-node test/bundle.test.js
-```
+Исходный код (`src/`, `build.py`, `test/`, `tools/`) и тексты таблиц книги в
+публичный репозиторий не включены.
 
 ## Лицензия
 
