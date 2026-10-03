@@ -1,0 +1,977 @@
+BOOKLET 4: RANDOM
+DUNGEON GENERATION
+Equipment
+Pencil protractor, compass, ruler, dice, and graph
+paper (approximately 40 - 42 by 50 - 54
+squares).
+Introduction
+Most of the time, a solo player will decide that
+the maximum size for a single level of a dungeon
+is delimited by the edge of a page of graph
+paper. If something rolled at random does not fit,
+either adjust the size of a room, chamber, or
+passage, or else re-roll. When acting as both the
+player and Referee, one must always be fair.
+A solo session can be used at a later time as
+fodder for a multi-player campaign. A written
+record of the session should note all baddies,
+prizes, oddities, etc. encountered. Later, the
+same situations can be used to entertain others
+either as they play through the dungeon
+themselves, or relive your exploits vicariously.
+Designer Note: The original dungeon underneath
+Blackmoor™ castle was analyzed using artificial
+intelligence to extract the data used to build these
+procedures. If followed, the type of dungeon
+generated should more closely match that of the
+Twin Cities campaign than the procedure later
+written by Gary Gygax.
+Starting Point
+The Central Chamber (see below) and all
+stairways should be located prior to creating
+anything else. Once the stairways are mapped,
+randomly determine which one the adventurer(s)
+will use to access the first level to the dungeon.
+•
+ If the chosen stairway leads to the central
+chamber, begin by numbering and
+locating the other exits and stocking that
+room.
+•
+ If it does not lead to the central chamber,
+there is a 2-in-3 chance that the stairway
+enters a room, otherwise it ends in a
+passageway.
+Exploring the Dungeon
+For every 100 feet of passageway travelled (i.e.
+every 10 squares), there is a 8-in-10 chance
+that a room or chamber has been found. The
+room or chamber is at the termination of the
+passage (especially near the edge of the map) or
+to either side. If the room is on the side of the
+passage, first roll up the room with exits and then
+determine which side. A room or chamber might
+have to be positioned deliberately instead of
+randomly.
+A keyed list of rooms and their contents as well as
+stairways and their direction can be kept on a 3"
+x 5" card or two. On the map, mark each with a
+number.
+Every 2,000 square feet explored (i.e. every 20
+squares) the solo player must roll for an
+oddity. Optionally, the player could roll for an
+oddity after every turn of exploration, assigning a
+5% chance per square traversed. Oddities can
+be denoted on the map with a letter key.
+Designer Note: Whenever the term "squares" is
+used, assume each square is 10' per side. If this
+seems to generate too many oddities, the number
+can be halved by changing the increment to 40
+squares or the percentage to 2.5%.
+Passageways
+A passageway is built one section at a time
+through dice rolls. The original direction of the
+passage should be determined at random.
+Likewise, if entering via a stairway, its position
+and type should be randomized too. The
+passageway's width stays the same throughout,
+though branches may have a different width. A
+passageway that "collides" with another feature
+can either be transformed into a dead end, or a
+secret door (even chances of either result). A
+passageway that reaches the edge of the map
+should dead end 5 to 10 feet prior to the map
+edge.
+Initial Direction If not already known (such as when leaving a room or chamber), the direction is determined at random by rolling 1d100. TABLE 4-51: PASSAGEWAY INITIAL DIRECTION Dice Roll Result 1 - 21 Northeast-Southwest 22 - 44 Northwest-Southeast 45 - 70 East-West 71 - 00 North-South Section Length Roll 1d20 and if the result is extraordinary, roll 1d100. TABLE 4-52: PASSAGEWAY SECTION LENGTH Dice Roll Length 1 10' 2 - 7 20' 8 - 12 30' 13 - 16 40' 17 - 18 50' 19 60' 20 Extraordinary TABLE 4-53: PASSAGEWAY SECTION EXTRAORDINARY LENGTH Dice Roll Extraordinary Length 1 - 44 70' 45 - 59 80' 60 - 69 90' 70 - 74 100' 75 - 81 110' 82 - 88 120' 89 - 94 130' 95 - 00 140' Passage Width Passages are generally 10' wide. There is a 1in-20 chance that the passage is either 5' wide or 20' wide. If it is a secret passage, the width is always 5 feet. Bend or Intersection The end of each section results in either a bend or intersection. Roll 1d100 and consult the next table.
+TABLE 4-54: PASSAGEWAY BEND OR INTERSECTION
+Dice Roll
+ Type
+ Sub-Type
+1 - 37
+ Bend
+ 90° Turn
+Diagonal
+38 - 56
+ Bend
+Turn
+Intersection, 3-
+57 - 74
+ T-junction
+way
+Intersection, 3-
+75 - 87
+ Y-junction
+way
+Cross (+)
+Intersection, 4-
+88 - 95
+ or X-
+way
+shaped
+Intersection, 4-
+ Staggered
+96 - 98
+way
+ Cross or X
+Intersection, 5-
+ Radiating
+99 - 00
+way or 6-way
+ junction
+A 90° turn will be either to the right or left (even
+chances of either result).
+A diagonal turn requires a 1d6 roll: 1 - 2 left
+45°; 3 - 4 right 45°; 5 behind left 135°; 6
+behind right 135°.
+For a T-junction or Y-junction, use best judgement
+or dice (1d6: 1 - 2 bottom; 3 - 4 left; 5 - 6 right)
+for which arm of the letter represents the
+termination of the current passageway section.
+There is also a 1-in-20 chance that the junction is
+actually a 20' by 20' triangular room with exits
+on all sides.
+Whether a 4-way intersection is either a cross or
+X-shaped depends on the direction of travel of the
+current passageway section. If staggered, one or
+more of the other arms of the 4-way intersection
+will be no more than 10' distant.
+For a radiating junction, there is a 8-in-10
+chance it is a 5-way intersection and a 2-in-10
+chance that it is a 6-way intersection. Again, use
+best judgement or dice when deciding where the
+current passage enters the junction.
+Central Chamber
+There is a 7-in-10 chance that a dungeon level
+has a central chamber. This should be placed
+on the map immediately. The location of each of
+the exits should be determined as well as the first
+section of each attached passage.
+TABLE 4-55: CENTRAL CHAMBER
+Dice
+Size
+ Shape
+ Exits
+Roll
+Irregular
+1
+ 60'x50'
+ 4
+Cavern
+Irregular
+2
+ 40'x40'
+ 5
+Cavern
+Irregular but
+3
+ 40'x40'
+ 5
+Geometric
+Irregular but
+4
+ 50'x40'
+ 4
+Geometric
+5
+ 50'x50'
+ Diamond
+ 4
+Irregular but
+6
+ 40'x40'
+ 4
+Geometric
+Irregular but
+7
+ 100'x80'
+ 4
+Geometric
+8 - 10
+ N/A
+ N/A
+ N/A
+Other Rooms and Chambers
+When a room or chamber is indicated, roll 1d12
+and consult the table below.
+TABLE 4-56: OTHER ROOMS AND CHAMBERS
+Dice Roll
+ Shape
+ Size
+1 - 2
+ Square
+ 15'x15'*
+3 - 4
+ Square
+ 20'x20'
+5 - 6
+ Rectangular
+ 20'x10'
+7
+ Rectangular
+ 20'x15'
+8**
+ Rectangular
+ 30'x15'
+8**
+ Rectangular
+ 40'x15'
+Irregular but
+9
+ 20'x15'
+Geometric
+Irregular but
+10
+ 25'x20'
+Geometric
+Irregular
+11
+ 30'x20'
+Cavern
+12
+ Exceptional
+ See Below
+* 15x15 rooms always have a closed door
+leading to them when found.
+** If the result is 8, there are even chances of
+either result.
+An exceptional result requires an additional roll
+of 1d6 as shown on the next table.
+TABLE 4-57: OTHER ROOMS AND CHAMBERS -
+EXCEPTIONAL TYPE
+Dice
+Shape
+ Size
+Roll
+1
+ Octagonal
+ 20' diameter
+2
+ Pentagonal
+ 25' diameter
+3
+ Cross-shaped
+ 25'x25'
+4
+ Diamond
+ 40'x40'
+5
+ Diamond
+ 50'x50'
+6
+ L-shaped
+ 30'x25'
+Number of Exits
+Roll 1d6 to determine the number of exits for the
+room or chamber.
+1 - There is only one exit (back the way
+you came). The room is seemingly a
+dead end.
+2 to 5 - There are 2 exits inclusive of the
+point of entry.
+6 - There are 3 exits inclusive to the point
+of entry.
+A dead end room may be searched for a single
+secret door. For each 10 feet searched, there is
+a 1-in-12 chance of discovering a secret door.
+Neither the floor nor ceiling may be searched in
+this manner.
+Location of Exit
+For each exit, roll 1d6 and consult the chart
+below. Re-roll any duplicates. Use discretion
+when placing an exit along a wall. When
+possible, the exit should be in the middle of the
+wall. If the space immediately beyond the
+indicated exit direction has already been filled,
+treat the exit as a secret door.
+TABLE 4-58: NUMBER OF EXITS
+Dice Roll
+ Direction
+1
+ North
+2
+ South
+3
+ East
+4
+ West
+Northeast or Northwest (equal
+5
+chances)
+Southeast or Southwest (equal
+6
+chances)
+Room or Chamber Contents
+If the chamber is an irregular cavern there is a 1-
+in-6 chance of a monster, otherwise the cavern is
+empty. If there is a monster, there is a 5-in-6
+chance he has treasure.
+If the chamber is not an irregular cavern, roll
+1d100. A non-wandering monster will always
+have treasure in solo play.
+TABLE 4-59: ROOM OR CHAMBER CONTENTS
+Dice Roll
+ Result
+1 - 39
+40 - 86
+87 - 00
+Empty
+Monster
+Just Treasure
+For Monsters and Treasure Troves suitable
+for solo play, see below.
+Stairway - General Features
+Every level of the dungeon has multiple
+stairways. First, determine how many stairways
+are present by rolling (2d6+3). If the result is
+greater than 12, re-roll.
+TABLE 4-60: STAIRWAY - NUMBER
+Random Result
+ Number of Stairways
+5
+ 4
+6 - 7
+ 9
+8 - 9
+ 10
+10
+ 14
+11 - 12
+ 17
+There is a 1-in-100 chance that a stairway goes
+both up and down. Otherwise, there is an even
+chance that a stairway goes up or down.
+Dungeon levels are separated by 20 to 30 feet of
+earth or stone.
+There is a 1-in-10 chance that the stairway
+spirals. All of these should be indicated by a
+circular chamber 20 feet in diameter. Otherwise,
+the stairway is represented by a 5' wide and 10'
+long (more or less).
+Stairway - Direction and Distance
+For each stairway where the direction and
+distance is unknown* roll 1d8. This decides the
+direction from the center of the map. The
+stairway can fall anywhere within one of these 45
+degree arcs. Exactly where within the arc can be
+randomized, once the distance is determined (see
+below).
+1 - North
+2 - Northeast
+3 - East
+4 - Southeast
+5 - South
+6 - Southwest
+7 - West
+8 - Northwest
+* The direction and distance of some stairways
+may have already been determined by another
+dungeon level which already connects to the
+current level which is being generated.
+Next, roll 2d6 to find the approximate distance
+from the center of the map. Finally, 1d5 (half of
+a ten-sided dice roll) can be used to find the exact
+distance within a particular 50 foot band.
+TABLE 4-61: STAIRWAY - DISTANCE FROM CENTRAL
+POINT
+Dice Roll
+ Distance Band
+2
+3 - 5
+6 - 8
+0-50 feet
+51-100 feet
+101-150 feet
+9 - 10
+11
+12
+151-200 feet
+201-250 feet
+>250 feet
+Stairway - Surroundings
+Any stairway in the first distance band is likely
+found somewhere in the central chamber.
+Otherwise roll 1d6:
+1 or 2 - The stairway is in a passageway (or
+alcove along a section of passageway). The
+passageway's direction of travel dictates the
+orientation of the stairway.
+3 to 6 - The stairway is in a room or chamber
+of 30' x 30' or less (keep rolling on the room
+table until this result is obtained). The orientation
+and exact location is left to the discretion of the
+solo player.
+Oddities
+When an oddity has been found, there is a 4-in-6
+chance that the next oddity is exactly the same.
+This may create a thematic feel for portions of the
+dungeon.
+1. Animal Pens (5' square) or Dungeon Cells (10'
+square)
+2. 1d4 hanging cages with human(oid) bones in
+them. Other implements of torture are in the
+same area.
+3. 1d8 circular or triangular pillars
+4. Large, circular, load-bearing column
+5. Pillar with secret door. A stairway is found
+inside. The stairway may lead upwards or
+downwards and ends in a small tunnel. This small
+tunnel (3' - 5' wide and 5' - 6' high) is slightly
+above or below the current dungeon level. The
+tunnel leads to another secret door somewhere
+else on the same level. Use the stairway
+generation procedure to locate the exit.
+6. Pit - See Traps above.
+7. Fire Pit (30' x 20') - See Traps above.
+8. ”Ghost Room" with 8 Ghosts, Haunting Spirits,
+or Spectres The type of monster is appropriate to
+the level of the dungeon.
+9. 1d6 bodies - Bloated, blue, in rigor mortis,
+etc. accompanied by copper coins and broken
+weapons. Some bodies may be unique such as
+that of a caveman (7' tall and hairy) or other
+humanoid race.
+10. Rubble (fills 3d3 squares)
+11. Secret Door
+12. Door (Ajar 3-in-4 chance; Closed 1-in-4
+chance). Closed doors may be stuck, locked, or
+both.
+13. Pool of Water, Oblong - 10' x 15'. The water
+is either potable or stagnant (even chances of
+either result).
+14. Underground Stream - Meanders 360 feet
+across the map providing access to those who
+can hold their breath. One hidden room is
+connected to the stream, inaccessible in any other
+way.
+15. If oddity within an Irregular Cavern of 720
+square feet or greater, there is a large
+underground pool. Otherwise, re-roll.
+16. Cage (see Traps above)
+17. Slide (see Traps above)
+18. Fallen statue of Poseidon (or similar object of
+worship or adoration)
+19. Living Statue. See BOOKLET 2.
+20. Trap Door - Up 1d3 levels
+21. Open Shaft - There is a 5-in-6 chance that
+this just goes down 1d3 levels. There is a 1-in-6
+chance that the shaft is essentially bottomless or
+ends in hot lava.
+22. Smoking Pot - Shoots balls of fire up to 20
+feet that strike anyone on a roll of 7 or greater
+on 2d6. Those struck receive 1d6 HTK of
+damage with no chance to save.
+23. Fountain with Devilish Statue - The life-sized,
+obsidian devil has gold horns. Inlaid silver
+highlights the nose, mouth, and ears. The ruby
+eyes of the statue emit an ominous red glow.
+From its mouth pours sulfurous (but drinkable)
+water. If meddled with, the statue begins to howl
+and the ground beings to tremble. If adventurers
+persist, the area around the fountain collapses.
+24. Glowing Stairway - Only one of these is
+found within the dungeon. This 20' wide stairway
+travels from the current level to the deepest one
+with no chance to turn around once trod upon.
+25. Glowing Bronze Tablet - The non-magical
+writing upon it is in the common tongue. It can
+say anything. The Referee may consult BOOKLET
+10: ORACULAR TABLES to determine its subject.
+26. Wooden bucket filled with blood.
+27. 1d12 empty wooden caskets.
+28. Invisible wall that blocks passage. Can be in
+the middle of a room, passage, or even stairway.
+29. A door leading to a 5' by 5' broom closet
+(now empty) or privy.
+30. Once sumptuous furnishings are found in
+disrepair or ruin.
+31. Notch in the wall containing a (magical)
+statuette of a beautiful woman / handsome man.
+Attempts to seduce possessor, waking him from
+sleep. Treat each seduction as though the victim
+has been subjected to a Charm Person spell. If
+rebuffed, will transform into a Giant Snake and
+attack.
+32. Devil shaped indentation in the floor with an
+altar flanked by flaming braziers. If disturbed, an
+earthquake threatens a cave-in.
+33. A patch of fungi of unknown type. The fungi
+are very flammable. If inflamed, the smoke
+produced may induce choking, vomiting,
+hallucinations, or death.
+34. The chamber, passage, or room is swept with
+a powerful and sustained gust of air,
+approximately 100 miles per hour. All torches
+and lanterns are blown out. Any doors in the
+vicinity are slammed open or shut (depending on
+direction from the source of the wind). There is a
+1-in-6 chance that the wind gust occurs when
+adventurers pass by.
+35. Spill
+i. Uncut jewels - 1d100 jewels spill out of a
+natural crack or pillar. They are worth 10 gp
+each until cut and polished by a jeweler.
+ii. Oil - This bubbles out of a crack in the wall or
+ceiling and pools on the floor. It is suitable for
+immediate use. There are 3d10 flasks worth.
+iii. Steam - A natural vent in the wall, ceiling, or
+floor emits high pressure steam at unpredictable
+intervals. There is a 1-in-3 chance that anyone
+passing by may be scalded for 1 die of damage.
+iv. Tar - The floor is covered with bubbling tar.
+Anyone passing through leaves footprints and
+emits an unmistakeable odor for 1d6 turns.
+Those in bare feet take 1 die of damage.
+v. Vein of copper, silver, or gold is embedded in
+the wall, floor, or ceiling. A Dwarf, Gnome, or
+Fairy automatically spots it but others passing by
+only have a 1-in-6 chance of noticing. The ore
+requires mining, refining, and minting to be worth
+anything.
+36. A Gas Pocket of one of the following types.
+Roll 1d8. Allow a saving throw.
+i. Obscured vision for 1d6 squares
+ii. Blinds those exposed for 1d6 turns
+iii. Fear causes anyone exposed to run 1 normal
+movement distance (i.e. 120' if unencumbered)
+iv. Sleep 2d6 turns
+v. A random Attribute is affected. Raised /
+Lowered 1d3 points more for 1d6 hours
+Sickness compels a return to the surface
+vi. Deadly Poison
+vii. Hypersensitive Vision - Anyone affected
+(failed save) can detect the next secret door
+automatically.
+37. Haunting Spirit. See BOOKLET 2.
+38. Minotaur. See BOOKLET 2.
+Deeper Levels
+For the second (and deeper) levels of a dungeon,
+the Referee can either align the graph paper
+exactly with the page above, or simply start in
+the middle of a new sheet when adventurers
+descend the stairs or fall down a chute, descend
+an elevator, etc. In any case, it is necessary to
+line up the vertical connections so the maps make
+sense. Using a piece of tracing paper to do this
+is helpful.
+Soloists Unite!
+To avoid encountering the same monsters,
+oddities, and treasures, multiple solo-players can
+exchange sealed envelopes. Another solo player
+could even provide for a whole series of rooms,
+new artifacts, etc. The outside of the envelope
+should be marked with the level of the dungeon
+for which the contents are meant. It might include
+a descriptive word such as "triangular room" or
+"trapped passageway" so the recipient can
+ensure the envelope is only opened if it matches
+the current state of a solo session.
+MONSTERS
+The number of monsters is at rough parity in HTK
+with the adventuring party when playing solo.
+There is an 1-in-6 chance that there should be
+one less or one more creature to weaken or
+strengthen the encounter (even chances of either
+result). This is true even in cases where a
+multiplier is indicated (qty x 2 or x 3). Sometimes
+HTK may be halved or doubled if only a single
+creature (qty 1) is indicated by the encounter
+matrix below.
+TABLE 4-62: SOLO MONSTER ENCOUNTER MATRIX
+Dungeon
+ Dice
+Monster
+Dungeon
+ Dice
+ Level
+ Roll
+Monster
+Level
+ Roll
+"
+ 7
+ Robot
+1
+1
+ Lizard, Giant
+(Roll 1d8)
+"
+ 8
+ Amazon
+"
+ 2
+ Dog
+Anti-Super Hero
+3
+1
+ (8th level Chaotic
+"
+ 3
+ Human Scum
+ (Roll 1d10)
+Warrior) (qty 1)
+"
+ 4 - 5
+ Goblin
+ "
+ 2
+ Gargoyle
+"
+ 6
+ Orcs (qty x 2)
+ "
+ 3
+ Toad, Giant
+"
+"
+2
+(Roll"
+"
+"
+"
+1d8)
+7
+8
+1
+2 - 3
+4
+5
+6
+Skeleton
+Fairy
+Anti-Hero (4th
+level Chaotic
+Warrior) (qty 1)
+Ghoul
+Lizard, Giant
+Spider, Giant
+Orcs (qty x 3)
+"
+"
+"
+"
+"
+"
+4
+(Roll1d8)
+4
+5
+6
+7
+8 - 9
+10
+1
+Spider, Giant
+Wight
+Ogre
+Troll
+Lycanthrope
+(Werewolf)
+Jacques d'Ombre
+Anti-Super Hero
+(8th level Chaotic
+Warrior) (qty 1)
+Dungeon
+ Dice
+Monster
+Level
+ Roll
+"
+ 2
+ Giant
+Dungeon
+Level
+"
+Dice
+Roll
+8 - 9
+Monster
+True Troll
+"
+ 3
+ Hoplite
+ "
+ 10
+ Vampire (qty 1)
+Seaweed, Man-
+"
+ 4
+Eating
+"
+ 5
+ Wraith
+"
+ 6
+ Mummy (qty 1)
+"
+ 7
+ True Troll
+Beetle, Giant (4
+"
+ 8
+HD)
+5
+1
+ Pudding
+(Roll 1d12)
+"
+ 2 - 3
+ Giant
+Seaweed, Man-
+"
+ 4
+Eating
+"
+ 5
+ Ochre Jelly
+"
+ 6 - 7
+ Wourme, Giant
+"
+6
+(Roll"
+"
+1d10)
+11 - 12
+Witch (Beautiful or
+Ugly) (qty 1)
+1
+2 - 3
+4 - 5
+Pudding
+Dragon,(qty 1)
+Cobalt
+Wizard(qty 1)
+(Chaotic)
+"
+ 6
+ Wourme, Giant
+"
+"
+7
+8 - 9
+Dragon, Horrible
+(qty 1)
+Vampire (qty 1)
+"
+ 10
+ Ghost
+Orcs within a single dungeon are usually of the
+same tribe. Exceptions such as escaped prisoners
+are also possible.
+TREASURE TROVE
+Solo play may be more rewarding than standard
+play. Gold, by itself, is either in sacks or loose
+(even chances of either situation).
+TABLE 4-63: SOLO TREASURE TROVE
+Dungeon
+Dice Roll
+ Prize
+Level
+1
+1 - 6
+ 1d3 x 250 gp
+(Roll 1d8)
+"
+ 7
+ 1,000 gp
+"
+ 8
+ Magic Sword
+2
+1
+ 500 gp
+(Roll 1d8)
+"
+ 2
+ 750 gp
+"
+ 3 - 4
+ 1,000 gp
+Silver Loving
+"
+ 5 - 6
+Cup (1,000 gp)
+Jeweled Ring
+"
+ 7
+(2,000 gp)
+"
+ 8
+ Magic Sword
+3
+ Gold Loving
+3 - 5
+(Roll 3d6)
+ Cup (2,500 gp)
+Gold Ring
+"
+ 6 - 7
+(3,000 gp)
+"
+ 8 - 9
+ 750 gp
+"
+ 10 - 11
+ 1,000 gp
+Dungeon
+Level
+"
+"
+"
+4
+(Roll 3d6)
+"
+"
+"
+"
+"
+"
+"
+"
+"
+"
+Dice Roll
+12 - 14
+15 - 17
+18
+Prize
+Silver Loving
+Cup (1,000 gp)
+Jeweled Ring
+(2,000 gp)
+ESP Medallion
+3
+ Magic Sword
+4
+5 - 6
+7 - 8
+9
+10
+11 - 12
+13 - 14
+15 - 16
+17
+18
+Sizable Emerald
+(5,000 gp)
+Jade Idol
+(5,000 gp)
+Gold Loving
+Cup (2,500 gp)
+Silver Loving
+Cup (1,000 gp)
+1,000 gp
+Jeweled Ring
+(2,000 gp)
+Gold Ring
+(3,000 gp)
+Silver Coffer
+(4,000 gp)
+Sizable
+Sapphire (6,000
+gp)
+Crystal Ball
+Dungeon
+Level
+5
+(Roll 3d6)
+"
+"
+"
+"
+"
+"
+"
+"
+"
+6
+Roll 1d12
+"
+Dice Roll
+ Prize
+3
+4 - 5
+6 - 7
+8 - 9
+10 - 11
+12
+13 - 14
+15 - 16
+17
+18
+Sizable Ruby
+(8,000 gp)
+Jade Idol
+(5,000 gp)
+Silver Coffer
+(4,000 gp)
+Gold Ring
+(3,000 gp)
+Gold Loving
+Cup (2,500 gp)
+Jeweled Ring
+(2,000 gp)
+Sizable Emerald
+(5,000 gp)
+Sizable
+Sapphiregp)
+(6,000
+Jeweled
+Necklace
+(7,000 gp)
+ESP Medallion
+1
+ Magic Sword
+2
+Sizable
+Diamond
+(10,000 gp)
+Dungeon
+Level
+"
+"
+"
+"
+"
+"
+"
+"
+Dice Roll
+ Prize
+3
+4 - 5
+6 - 7
+8
+9
+10
+11
+12
+Jeweled
+Necklace
+(7,000 gp)
+Sizable Emerald
+(5,000 gp)
+Jade Idol
+(5,000 gp)
+Silver Coffer
+(4,000 gp)
+Sizable
+Sapphiregp)
+(6,000
+Sizable Ruby
+(8,000 gp)
+Gold Crown
+(9,000 gp)
+Crystal Ball
+PASSAGES OF EXTRAORDINARY
+MAGNITUDE
+There is a 1-in-5 chance per level that the
+dungeon extends beyond the border of the graph
+paper. These passages can be as long as
+desired. A full analysis of FFC has not been
+completed. Suffice to say that a larger, deep and
+lengthy set of tunnels and caverns may travel for
+miles beneath the surface of the campaign world.
+These may have been carved out by volcanic
+action, ancient magic, alien technology, Ochre
+Jellies, or Giant Wourmes.

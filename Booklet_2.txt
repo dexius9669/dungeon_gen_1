@@ -1,0 +1,270 @@
+================================================================================
+OD&D BOOKLET 2 (фрагмент) — ПЕРВОИСТОЧНИК
+================================================================================
+
+Этот файл сохранён дословно по тексту, присланному пользователем 30.09.2026.
+Форматирование строк перевёрстано (исходный текст был «расплющен» из PDF), но
+формулировки НЕ изменялись. Ничего не добавлено и не выброшено.
+
+В присланном фрагменте ОТСУТСТВУЕТ (упоминается по тексту, но не приложено):
+  • сноски 11, 12, 13, 14, 15
+      11 — про 4-из-6 у эльфов на потайные двери
+      12 — про 1-из-6 на заклинившие/запертые двери
+      13 — про баланс специальных монстров
+      14 — The Hunter (ПО УКАЗАНИЮ ПОЛЬЗОВАТЕЛЯ ИСКЛЮЧЁН ИЗ ГЕНЕРАТОРА)
+      15 — про Yahtzee
+  • TABLE 30 («TABLE 30 below» в описании The Hunter) — неизвестна.
+      Заменена на TABLE 4-62 из Booklet 4.
+  • Раздел Special Rooms ОБОРВАН на середине фразы (см. конец файла).
+      Известны только Casino и начало Movie Theater.
+
+Разбор и структурированное извлечение: см. Booklet_2_notes.md
+================================================================================
+
+
+Tricks and Traps
+---------------
+There are any number of tricks and traps for the unwary in the underworld.
+Their purpose varies from simple amusement for the participants to fatality.
+The Referee is encouraged to add to this list continually so that
+participants never become bored or complacent.
+
+Acid Bath - This is a pit or entire chamber filled with a highly corrosive
+substance that may give off poisonous fumes. Typically, a means to cross to
+the other side of the acid bath is provided, though it may be a rickety
+ladder, dodgy rope, or other risky means. A character's skill or just blind
+luck often determines who lives or dies. Armor may provide a few rounds of
+protection against the acid.
+
+Cage - When triggered, a cage falls on one or more characters, trapping them
+for 1d6 turns before they can escape. If the cage is in a room, a randomly
+determined treasure is often the bait to entice adventurers into the trap,
+or to reward them if it is circumvented.
+
+Chute - A panel in the floor gives way and the adventurer who triggered the
+trap is swept downward to a lower level of the dungeon. Often, the chute has
+one or more mechanisms to prevent someone from climbing back up such as
+grease, a series of one way panels, retracting spikes (like in a modern
+garage), etc.
+
+Elevator Room - After a certain number of participants enter the room, the
+doors seal and the room descends 1d3 levels. It will eventually return to its
+original location, though not if occupied.
+
+Man Eating Sea Weed - An entire corridor, cavern, or chamber is filled (or
+starts filling) with an enormous quantity of Man Eating Sea Weed (150 HTK).
+Sometimes the monster is located at the bottom of a chute, pit, or elevator.
+Other times, an adventurer might trigger a sluice gate that allows the
+corrosive substance to pour into the area.
+
+Magical Portal - Those who pass through the portal are transported from one
+location to another, however, the cosmic balance must be maintained.
+Therefore, the HTK of any creature(s) sent through the portal are tallied
+and within 1d6 turns one or more creatures (at random) emerge from the
+portal until the HTKs are the same on both sides.
+
+Pile of Bones - This is a deconstructed skeleton which, if reassembled, can do
+one of four things:
+  1. Attack the builder
+  2. Serve the builder until destroyed
+  3. Lead the builder to a randomly determined treasure
+  4. Lead the builder to its master - a high level Magic-User capable of
+     animating the dead
+
+Pit - This falling trap may be open, concealed, or covered and triggered by
+the weight of an adventurer. The fall will do some number of points of
+damage to the character when he hits the ground - as much as 1d6 per ten
+feet. A saving throw is sometimes provided to halve the damage. Typically, a
+pit has no exit at the bottom.
+
+Pit, Staked - As above except the bottom is lined with stakes that are likely
+(4-in-6 chance) poisoned. If poisoned, a saving throw must be made to avoid
+death. The stakes themselves do 1d6 points of damage in excess of the fall.
+
+Pit, Fire - As above, however the character lands inside of an oven, forge, or
+furnace. The shaft that the character fell down is the source from which the
+fire draws fresh air. Another shaft nearby is the chimney and may lead
+elsewhere in the dungeon or else to the surface. The character takes
+additional damage (1d6 or 2d6) each round he remains in the fire.
+
+Slide - An adventurer falls through a trapdoor and onto a slide which descends
+to the next level of the dungeon. If the slide is in a room, the Referee
+should roll up a random treasure which is used to bait the trap. The Referee
+should have the player pick a number. This number determines into which
+chamber on the next level the slide dumps him out. If there is a monster in
+that room, the character must fight it (i.e. there is no chance of surprise
+and the monster automatically has a negative reaction).
+
+Sliding Panel - When one of the adventurers passes underneath, a panel will
+suddenly slid down into place - blocking retreat. The party may make one
+attempt to open it with a 1-in-6 chance that it slides back up. The panel can
+be made of metal, stone, or wood. If made of metal, it cannot be circumvented
+without several hours of work.
+
+Trap Door - the weight of one or more adventurers causes it to give way,
+dropping him or them to the next level of the dungeon.
+
+Underworld Sea - The adventurers discover an entryway to a massive underworld
+sea. Unless the adventurers have a way to construct a raft, there is no way to
+explore further. The Referee might provide a pier and ship if such a
+fantastic adventure is appealing. Or perhaps it is just an illusion?
+
+Living Statue - This is an animated clay, stone, or metal statue. All can move,
+while some are imbued with a limited ability to speak a message or have a
+brief interaction. There is seemingly no limit to the size of the statue but
+most are larger than a man yet smaller than a giant. Some are armed, others
+use their arms and hands to crush or smash an opponent. A Living Statue is
+usually bound to follow a set of instructions; most are used to guard a
+location or treasure trove. A handful are quite beautiful like the one
+sculpted by Pygmalion.
+
+Haunting Spirit - A spirit that is bound to a particular location. The location
+can be a single room, dwelling, graveyard, hilltop, manse, or an entire marsh.
+The spirit makes its presence known by haunting. The spirit need not be that
+of a human, it can also be that of a beloved pet such as a dog, cat, or other
+animal. A Haunting Spirit is seldom seen, except out of the corner of the
+eye, or moving in the shadows. Those who are sensitive to psychic energy (such
+as a Magic-User or Cleric) may sense the spirit first. Encounters with a
+Haunting Spirit are often just frightening though a few prefer to play
+practical jokes. Sometimes they move or throw small objects, scream, recreate
+a violent scene, foretell a doom, etc. However, there are a handful of
+Haunting Spirits who act out physically. The latter type can draw blood by
+clawing at a victim, push or trip someone, or even lift the person off the
+ground and carry them about. Such attacks do 1d3 HTK points of damage. The
+worst of these can cause death or insanity, especially during a stormy night
+when their powers are at the peak. Such attacks do 1d6 HTK of damage but the
+victim gets a saving throw to avoid harm. The details of any insanity are left
+to the Referee.
+
+Minotaur - This flesh-eating beast has a bovine head atop the powerful body of
+a man or woman. A Minotaur is bad-tempered, not too bright, and as strong as
+a bull. It does twice damage when it strikes. A Minotaur does not check
+morale. It will automatically attack and pursue so long as its prey is in
+sight.
+
+
+UNDERWORLD ADVENTURES
+---------------------
+Referee uses graph paper and a pencil to lay out a map of a mine,
+counter-mine, or dungeon. Many of these passages should not only run in each
+of the cardinal directions, but also at 45 degree angles. In some places the
+Referee notes on his map the position of connections to other levels of the
+dungeon, traps, the presence of monsters (and treasure!), and regular and
+secret doors.
+
+During play, the Referee calls out distances and describes the rooms,
+corridors, doors, etc. in reaction to the players' actions.
+
+Wise players will make their own map of the underworld, or else find some way
+to mark their progress so they can return to the surface.
+
+Surprise
+---------
+The party has a 1-in-6 chance of being jumped by the baddies when they are
+making noise or otherwise distracted (such as when a Cleric is healing a party
+member). Monsters are subject to surprise as well.
+
+Secret Doors
+------------
+Elves have a 4-in-6 chance of finding and opening a secret door. Other
+characters have a 2-in-6 chance of merely locating a secret door. Secret doors
+are often found at apparent dead ends.
+
+Torches and Light
+-----------------
+Each torch lasts one hour. To make it easier to track, the Referee can simply
+assume that time passes in the dungeon just as it does in real life. Using an
+actual hourglass can help achieve the right atmosphere at the table. When the
+time expires, the torch sputters out, no matter what is happening. This is
+particularly unfortunate for adventurers who are in combat or running away
+from monsters.
+
+A torch does not emit much light, leaves behind smoke and soot, and otherwise
+exposes adventurers to discovery. Because torchlight is so irregular, any
+underground encounter takes place at 1d6 x 10 feet.
+
+Stuck or Locked Doors
+---------------------
+Many doors in a dungeon are stuck or locked; a character has a 1-in-6 chance
+of opening these. A rare few are both stuck and locked (1-in-12 chance of
+opening). If the door won't budge, it can be kicked down or busted in (often
+using an axe). This creates a lot of noise and requires an additional
+wandering monster check.
+
+Underworld Oddities
+-------------------
+Sometimes a room or corridor will contain (or lead to) a secret door,
+stairway, special monster, special room, trick, or trap. These oddities are
+in addition to any wandering monsters or keyed encounters. The oddities
+immediately below are suggestive, not comprehensive. The Referee should add
+his own oddities to keep things fresh. For additional guidance, see the
+procedure for generating oddities in BOOKLET 4: RANDOM DUNGEON GENERATION.
+
+Special Monsters
+----------------
+The Referee may introduce some monsters which pose a special challenge to
+players. These monsters possess rare skills, weapons, or armament. Whatever
+combinations the Referee devises, he should be careful not to introduce a
+monster so powerful as to destroy play balance. Some examples follow:
+
+• An Anti-Hero who is capable of high-level wizardry and wields an
+  intelligent, magic sword.
+• A Bealuwearg wearing an adamantine hauberk presents a deadly challenge to
+  those who wish to fight.
+• An insomniac Dragon or a Dragon with a poisonous bite in addition to its
+  fiery breath.
+• An Earth Elemental in the form of a gigantic Roc will attack any who comes
+  near. It has 8 times the strength of a normal Roc and does octuple damage
+  with every blow.
+• A Ghoul with a magical shield strapped to its arm roams the dungeon.
+• A Giant that breathes fire.
+• A Troll, with armor made of a Cobalt Dragon's hide, has a magic sword. He
+  searches for a worthy opponent to duel.
+• The Hunter[14] - ИСКЛЮЧЁН ПО РЕШЕНИЮ ПОЛЬЗОВАТЕЛЯ, в генератор не входит.
+
+Special Rooms
+-------------
+Casino - Players that enter this room are teleported to a Las Vegas style room
+where they have an opportunity to play games of chance against a Sage such as
+a board game, card game, or dice game. Mundane loaded dice, as well as the
+magical Undetectable Stacked Deck and Undetectable Loaded Dice are of use in
+this situation. The Sage might offer any odds, stakes, and winnings the
+Referee desires. Losers might sacrifice gold, HTK, nothing at all, etc. For
+example, the Sage might offer to play a game Yahtzee[15] and grant the winner
+25 experience points with no penalty for losing.
+
+If "busted," a Sage may answer a question concerning his area of
+specialization. Sages specialize in questions about living things, the
+supernatural, or the physical world (Alchemy, Astrology, Physics, etc.). Very
+difficult questions cannot be attempted in such a setting since the Sage is
+obviously vacationing at the Casino and cannot consult his library.
+
+A "busted" Sage can also be hired for either 20d10 gp per year, or else can be
+hired to answer a single very difficult question for a flat rate of 500 gp.
+If hired at the annual rate and dismissed from service without just reason,
+however, the hiring character may never hire another Sage.
+
+Designer Note: In FFC, a Scholar can be hired for the former rate, while in
+Arneson v. Gygax, the latter fee is shown. Both Arneson and Gygax developed
+intricate rules for Sages — Arneson in the Blackmoor™ supplement and Gygax in
+the Dungeon Masters Guide for AD&D 1st edition. That book has an entire
+appendix dedicated to the rules for dice and card games. Per Jon Peterson's
+commentary in the Rules to the Game of Dungeon, craps and Yahtzee were
+definitely played by gamers in the Twin Cities.
+
+Anyone who attacks a Sage is automatically changed to Chaotic alignment unless
+the Sage himself was Chaotic (1-in-3 chance). When a Sage is about to die from
+a murderous assault, the Sage is able to cast a curse on the person or
+creature that reduced him to zero HTK. There is a 1-in-4 chance that the Sage
+was sufficiently knowledgable that this curse can have a devastating effect
+such as preventing the cursed slayer from ever making a saving throw.
+Otherwise, the curse of lesser effect such as having all of the murderer's
+hair fall out. The only means to remove such a curse is to complete a
+religious Quest for a Cleric or Patriarch.
+
+Movie Theater - Just as with the Casino, this room provides a temporary escape
+to the "real world" for the participants in the game. Most likely, this was
+used as a break to watch television, especially if a sword and sandal movie or
+horror flick was programmed.
+
+<<< ФРАГМЕНТ ОБОРВАН ЗДЕСЬ. ВОЗМОЖНЫ ПРОПУЩЕННЫЕ SPECIAL ROOMS И СНОСКИ 11-15 >>>

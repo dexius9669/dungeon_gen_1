@@ -3092,7 +3092,9 @@ function shiftGroup(group, diff) {
   return Math.max(1, Math.min(3, g));
 }
 
-/* TABLE 3-32: шанс занятой комнаты по уровню. */
+/* TABLE 3-32: шанс занятой комнаты по уровню. Справочная таблица для Рефери:
+ * автопоток наполняет комнаты по правилу Буклета 4 (4-59: 1d100, пусто 1-39 /
+ * монстр 40-86 / только сокровище 87-100), а не по этой вероятности. */
 function occupiedRoomChance(level) {
   if (level <= 2) return { n: 6, ok: 1 };
   if (level <= 5) return { n: 6, ok: 2 };
@@ -3145,7 +3147,7 @@ const { MONSTERS } = require('src/data/monsters.js');
 const { TREASURE } = require('src/data/treasure.js');
 const { ODDITIES, CREATURES } = require('src/data/oddities.js');
 const {
-  GROUPS, GROUP_ROMAN, groupForLevel, shiftGroup, occupiedRoomChance, NUMBER_APPEARING
+  GROUPS, GROUP_ROMAN, groupForLevel, shiftGroup, NUMBER_APPEARING
 } = require('src/data/wandering.js');
 const {
   VERBS: O_VERBS, NOUNS: O_NOUNS, ADJECTIVES: O_ADJ, ADVERBS: O_ADV,
@@ -3943,12 +3945,15 @@ resolveText(text) {
     return { lines };
   }
 
-  /* 4-59 (теперь по Stocking Monsters). Шанс занятой комнаты — TABLE 3-32 по
-   * уровню; занята → монстр из Группы (уровень + сложность 3-31) с числом
-   * появляющихся; иначе пусто. Особого правила «каверны» больше нет.
-   * Соло: неподвижный (keyed) монстр всегда с сокровищем — скрыто (Обыскать). */
+  /* 4-59 (Booklet 4): содержимое комнаты. Обычная комната — 1d100:
+   * 1-39 пусто, 40-86 монстр, 87-100 «только сокровище». Нерегулярная каверна
+   * идёт по своему правилу: 1-из-6 монстр, иначе пусто; у монстра 5-из-6
+   * сокровище. Монстр берётся из Stocking Monsters (Группа по уровню, сложность
+   * 3-31, Number Appearing). Соло: неподвижный (keyed) монстр обычной комнаты
+   * всегда с сокровищем — скрыто (Обыскать). */
   t_4_59() {
-    if (this.state.roomStocked) {
+    const s = this.state;
+    if (s.roomStocked) {
       return {
         lines: ['Эта комната уже наполнена — второй раз 4-59 не бросается.'],
         warn: 'повторный бросок 4-59: комната наполняется один раз. ' +
@@ -3956,21 +3961,47 @@ resolveText(text) {
         next: ['4-54']
       };
     }
-    this.state.roomStocked = true;
+    s.roomStocked = true;
     const level = this.level;
-    const ch = occupiedRoomChance(level);
-    const occ = chanceOf(this.rng, ch, 'Комната занята? (' + ch.ok + '-из-6)');
-    if (!occ.ok) {
-      this.state.monsterLoot = null;
+
+    /* Нерегулярная каверна: 1-из-6 монстр, иначе пусто; монстр 5-из-6 с добычей. */
+    if (s.roomCavern) {
+      const occ = chanceOf(this.rng, T['4-59'].cavern.monsterChance, 'Каверна: монстр? (1-из-6)');
+      if (!occ.ok) {
+        s.monsterLoot = null;
+        return { lines: ['Каверна выглядит пустой.'], next: this.afterRoom() };
+      }
+      const loot = chanceOf(this.rng, T['4-59'].cavern.treasureChance, 'У монстра есть сокровище? (5-из-6)');
+      return this._stockedMonster(level, loot.ok, 'Каверна занята.');
+    }
+
+    const a = rollTable(this.rng, '4-59', 'Содержимое комнаты · 1d100');
+    if (a.out === 'empty') {
+      s.monsterLoot = null;
       return { lines: ['Комната выглядит пустой.'], next: this.afterRoom() };
     }
+    if (a.out === 'treasure') {
+      s.monsterLoot = null;
+      const t = this.t_4_63();
+      return {
+        lines: ['Комната пуста, но здесь спрятано сокровище.'].concat(t.lines),
+        next: this.afterRoom(),
+        warn: t.warn || null
+      };
+    }
+    return this._stockedMonster(level, true, 'Комната занята.');
+  }
+
+  /* Карточка занятой комнаты: монстр из Группы Stocking Monsters.
+   * withLoot — гарантировано ли сокровище (обычная комната: всегда; каверна: 5-из-6). */
+  _stockedMonster(level, withLoot, title) {
     const diff = this._difficulty();
     const g = shiftGroup(groupForLevel(level), diff);
     const mon = this._pickGroupMonster(g);
     const num = this._numberAppearing(level, diff);
-    this.state.monsterLoot = true;
+    this.state.monsterLoot = !!withLoot;
     return {
-      lines: ['Комната занята.',
+      lines: [title,
         mon[1] + (num.n > 1 ? ' ×' + num.n : '') + ' (группа ' + GROUP_ROMAN[g] + ')' +
         (diff === 'same' ? '' : diff === 'easier' ? ' — слабее обычного' : ' — сильнее обычного'),
         this._reactionLine()],
