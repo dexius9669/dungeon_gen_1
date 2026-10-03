@@ -2363,7 +2363,8 @@ T['4-54'] = {
       chance: { n: 10, ok: 8, out: 5, elseOut: 6 }
     }
   },
-  // 1-из-20: перекрёсток на деле треугольная комната 20'x20' с выходами на всех сторонах
+  // 1-из-20: перекрёсток на деле — треугольная комната, вписанная в квадрат
+  // 20'×20', с выходом на каждой из трёх сторон
   junctionRoomChance: { n: 20, ok: 1 },
   // для T/Y: какое плечо буквы продолжает текущую секцию
   armRoll: { die: '1d6', rows: [ { r: [1,2], out: 'back' }, { r: [3,4], out: 'left' }, { r: [5,6], out: 'right' } ] },
@@ -3389,6 +3390,9 @@ function defaultState() {
     /* комната уже наполнена? без этого 4-59 можно бросить дважды и получить
      * «сокровище» и «пусто» из одной комнаты */
     roomStocked: false,
+    /* сокровище без монстра спрятано: карточка комнаты молчит («выглядит
+     * пустой»), тайник раскрывает только действие «обыскать» */
+    hiddenTreasure: false,
     /* диковинки, уже выпадавшие за партию: нужно правилу once (#24, светящаяся
      * лестница — одна на подземелье) */
     odditiesSeen: [],
@@ -3409,11 +3413,12 @@ function defaultState() {
  * (state, out) -> массив. Условные переходы (нашлась комната, остались выходы,
  * остались лестницы) — функции, прямые — массивы. */
 /* Переходы «далее вероятно»: id -> массив или функция (state, out) -> массив.
- * После наполнения комнаты возвращаемся в проход; для входной комнаты/камеры —
- * в первый проход (4-52), иначе в 4-54. */
+ * После наполнения комнаты выходим в проход: по буклету он строится секция за
+ * секцией, поэтому сначала длина секции (4-52), а поворот/перекрёсток (4-54) —
+ * уже в её конце. Для входной комнаты/камеры дополнительно снимаем флаг входа. */
 function roomFollowUp(s) {
-  if (s.entryRoom && !s.entryRoomDone) { s.entryRoomDone = true; return ['4-52']; }
-  return ['4-54'];
+  if (s.entryRoom && !s.entryRoomDone) { s.entryRoomDone = true; }
+  return ['4-52'];
 }
 
 const NEXT = {
@@ -3751,9 +3756,13 @@ resolveText(text) {
     }
     if (a.out === 't3' || a.out === 'y3') {
       /* «1d6: 1-2 bottom; 3-4 left; 5-6 right — какое плечо буквы держит
-       * конец текущей секции» */
+       * конец текущей секции». Плечо — это «рукав» буквы T/Y: в одно плечо
+       * упирается подошедшая секция, два других становятся новыми проходами. */
+      lines.push('Три плеча: одно — конец текущей секции, два других — новые проходы.');
+      lines.push('Бросок 1d6: 1-2 — низ буквы, 3-4 — левое плечо, 5-6 — правое.');
       const r = this.rng.roll(T['4-54'].armRoll.die, 'Какое плечо буквы продолжает секцию? · 1d6');
-      lines.push('Конец секции идёт по плечу: ' + ARM_RU[pickRow(T['4-54'].armRoll.rows, r.total).out]);
+      lines.push('Секция упирается в ' + ARM_RU[pickRow(T['4-54'].armRoll.rows, r.total).out] +
+        ': нарисуйте букву так, чтобы это плечо смотрело на подошедший коридор; два остальных плеча — новые выходы.');
     }
     if (a.out === 'x4') {
       return {
@@ -3768,7 +3777,7 @@ resolveText(text) {
     if (a.out === 'stag4') lines.push('Смещённый: одно или несколько других лучей не дальше 10 футов.');
     const jr = chanceOf(this.rng, T['4-54'].junctionRoomChance, 'Перекрёсток — на деле треугольная комната?');
     lines.push(jr.ok
-      ? "На деле треугольная комната 20'x20' с выходами на всех сторонах"
+      ? "Перекрёсток оказывается треугольной комнатой, вписанной в квадрат 20'×20'; выход с каждой из трёх сторон"
       : 'Обычный перекрёсток');
     return { lines };
   }
@@ -3792,7 +3801,7 @@ resolveText(text) {
       : 'Перекрёсток (Х): лучи под 45° друг к другу.';
     const jr = chanceOf(this.rng, T['4-54'].junctionRoomChance, 'Перекрёсток — на деле треугольная комната?');
     return {
-      lines: [note, jr.ok ? "На деле треугольная комната 20'x20' с выходами на всех сторонах" : 'Обычный перекрёсток']
+      lines: [note, jr.ok ? "Перекрёсток оказывается треугольной комнатой, вписанной в квадрат 20'×20'; выход с каждой из трёх сторон" : 'Обычный перекрёсток']
     };
   }
 
@@ -3845,6 +3854,7 @@ resolveText(text) {
     if (!a.out) return { lines: ['Не удалось получить тип камеры — перебросьте 4-55.'] };
     /* «begin by numbering and locating the OTHER exits»: вход уже есть. */
     this.state.roomStocked = false;
+    this.state.hiddenTreasure = false;
     this.state.exitsLeft = a.out.exits - 1;
     this.state.roomCavern = !!a.out.cavern;
     this.state.roomSqFt = a.out.w * a.out.h;
@@ -3859,6 +3869,7 @@ resolveText(text) {
     /* началась новая комната: счётчик «уже наполнена» и скрытая добыча
      * предыдущей сбрасываются */
     this.state.roomStocked = false;
+    this.state.hiddenTreasure = false;
     this.state.monsterLoot = null;
     /* Комната лестницы — не более 30' (буклет: «keep rolling ... until this
      * result is obtained»); исключительные типы сюда не берём. */
@@ -3958,7 +3969,7 @@ resolveText(text) {
         lines: ['Эта комната уже наполнена — второй раз 4-59 не бросается.'],
         warn: 'повторный бросок 4-59: комната наполняется один раз. ' +
               'Если вы наполняете новую комнату, сначала бросьте 4-56 и room-exits.',
-        next: ['4-54']
+        next: ['4-52']
       };
     }
     s.roomStocked = true;
@@ -3981,13 +3992,12 @@ resolveText(text) {
       return { lines: ['Комната выглядит пустой.'], next: this.afterRoom() };
     }
     if (a.out === 'treasure') {
+      /* Сокровище без монстра скрыто: карточка выглядит как пустая комната, а
+       * тайник выдаёт только «обыскать» (см. t_loot). Так «вслепую» нельзя
+       * отличить клад от пустой комнаты, пока не потратишь ход. */
       s.monsterLoot = null;
-      const t = this.t_4_63();
-      return {
-        lines: ['Комната пуста, но здесь спрятано сокровище.'].concat(t.lines),
-        next: this.afterRoom(),
-        warn: t.warn || null
-      };
+      s.hiddenTreasure = true;
+      return { lines: ['Комната выглядит пустой.'], next: this.afterRoom() };
     }
     return this._stockedMonster(level, true, 'Комната занята.');
   }
@@ -4021,8 +4031,14 @@ resolveText(text) {
     if (!s.roomStocked && s.monsterLoot === null) {
       return { lines: ['Сначала разыграйте содержимое комнаты (4-59).'] };
     }
-    let lines;
-    if (s.monsterLoot === true) {
+    let lines, warn = null;
+    if (s.hiddenTreasure) {
+      /* скрытый клад комнаты без монстра: раскрывается только здесь */
+      s.hiddenTreasure = false;
+      const t = this.t_4_63();
+      lines = ['Обыскали комнату — обнаружен тайник!'].concat(t.lines);
+      warn = t.warn || null;
+    } else if (s.monsterLoot === true) {
       s.monsterLoot = null;
       lines = this.t_4_63().lines;
     } else if (s.monsterLoot === false) {
@@ -4032,7 +4048,7 @@ resolveText(text) {
       lines = ['Обыскали комнату — ничего не найдено.'];
     }
     const tt = this._spendTime(T.dungeon.minutesPerTurn);
-    return { lines: lines.concat(tt.lines), halt: tt.enc };
+    return { lines: lines.concat(tt.lines), warn: warn, halt: tt.enc };
   }
 
   /* Бросок монстра по матрице 4-62. Общий для комнат и случайных встреч. */
