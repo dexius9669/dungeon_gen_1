@@ -3353,6 +3353,21 @@ const PLURAL = {
 
 /* Глубокий клон карточки журнала. Нужен при восстановлении партии: иначе две
  * Flow, загруженные из одного файла, делили бы вложенные rolls/lines/next. */
+/* Столы, на карточках которых есть смысл обыскивать: комнатная фаза плюс
+ * ручной бросок монстра 4-62. Проходы, лестницы, вход, оракулы и итоговые
+ * карточки в набор не входят; блуждающий монстр добавляется отдельно флагом
+ * «встреча случилась в этой карточке» (см. _card/_encounterLines). */
+const SEARCH_TABLES = {
+  '4-55': 1, '4-56': 1, '4-57': 1, '4-58': 1, '4-59': 1, 'room-exits': 1, '4-62': 1
+};
+
+/* Флаг «на этой карточке можно обыскать» с запасным значением для старых
+ * сохранений, где поля ещё не было: там ориентируемся только на стол. */
+function searchableCard(c) {
+  if (!c) return false;
+  return c.search !== undefined ? !!c.search : !!SEARCH_TABLES[c.table];
+}
+
 function cloneCard(c) {
   return {
     n: c.n, table: c.table, title: c.title, group: c.group, level: c.level,
@@ -3363,7 +3378,8 @@ function cloneCard(c) {
     choice: c.choice ? c.choice.map(o => Object.assign({}, o)) : null,
     action: c.action || null,
     chosen: c.chosen || null,
-    halt: c.halt || false
+    halt: c.halt || false,
+    search: searchableCard(c)
   };
 }
 
@@ -3476,6 +3492,7 @@ class Flow {
     this.rng = new RNG({ seed: opts.seed });
     this.cards = [];
     this.state = defaultState();
+    this._encounterThisCard = false;
     if (opts.cards) this.restore(opts);
   }
 
@@ -3493,6 +3510,7 @@ class Flow {
     const mark = this.rng.log.length;
     const meta = TABLES.find(t => t.id === id) || {};
     this.rng.phase = meta.group || '';
+    this._encounterThisCard = false;
     const out = produce() || {};
     const rolls = this.rng.log.slice(mark).map(r => ({ f: r.formula, d: r.detail, t: r.total }));
     const card = {
@@ -3516,7 +3534,11 @@ class Flow {
        * сравнение restore-копии с оригиналом ломается на порядке/наборе полей */
       chosen: null,
       /* событие, на котором автоцепочка обязана встать (монстр/встреча) */
-      halt: !!out.halt
+      halt: !!out.halt,
+      /* можно ли обыскать на этой карточке: комнатные столы и 4-62 плюс
+       * блуждающая встреча, случившаяся именно в этой карточке. Флаг хранится
+       * в карточке (а не считается в UI), чтобы переживать save/load. */
+      search: !!SEARCH_TABLES[id] || !!this._encounterThisCard
     };
     this.cards.push(card);
     return card;
@@ -4143,6 +4165,8 @@ resolveText(text) {
     const num = this._numberAppearing(level, diff);
     const dist = this.rng.roll(d.encounterDistance.die, 'Дистанция встречи · 1d6×10 футов').total * d.encounterDistance.per;
     this.state.monsterLoot = chanceOf(this.rng, { n: 6, ok: 1 }, 'У бродячего монстра есть добыча? (1-из-6)').ok;
+    /* встреча произошла на текущей карточке: там же разрешаем обыск */
+    this._encounterThisCard = true;
     const head = mon[1] + (num.n > 1 ? ' ×' + num.n : '') + ' (группа ' + GROUP_ROMAN[g] +
       (diff === 'same' ? '' : diff === 'easier' ? ', легче' : ', сложнее') + ')';
     return [head,
@@ -4231,8 +4255,10 @@ resolveText(text) {
     const row = pickRow(lv.rows, r.total);
     /* «1d3 x 250 gp» — это бросок, а не инструкция мастеру: считаем здесь,
      * иначе карточка велит бы пользователю самому прикинуть сумму */
+    /* Один приз на строку: название само говорит, что предмет магический
+     * («Магический меч», «Медальон ESP», «Хрустальный шар»). Отдельная
+     * строка-пометка читалась как второй предмет, поэтому убрана. */
     const lines = [this.resolveText(row.item.ru)];
-    if (row.magic) lines.push('Магический предмет.');
     return { lines, warn: this.level > 6 ? 'уровень ' + this.level + ' не восстановлен: взяты значения 6-го уровня' : null };
   }
 
@@ -4530,7 +4556,7 @@ resolveText(text) {
   }
 }
 
-module.exports = { TABLES, RU, SHAPES, pickRow, rollTable, roomSize, Flow, ORACLE_PRESET, oracleFor };
+module.exports = { TABLES, RU, SHAPES, pickRow, rollTable, roomSize, Flow, ORACLE_PRESET, oracleFor, searchableCard, SEARCH_TABLES };
 },
 "src/engine/rng.js": function (require, module, exports) {
 /* =============================================================================
@@ -4753,7 +4779,7 @@ if (typeof module !== 'undefined') {
 
 'use strict';
 
-const { Flow, TABLES, RU, oracleFor } = require('src/engine/flow.js');
+const { Flow, TABLES, RU, oracleFor, searchableCard } = require('src/engine/flow.js');
 const T = require('src/data/tables.js');
 
 const GROUPS = ['Вход', 'Проход', 'Комнаты', 'Лестницы', 'Содержимое', 'Прочее', 'Оракул'];
@@ -5019,9 +5045,12 @@ function draw(card) {
     c.appendChild(nx);
   }
 
-  /* («Комната выглядит пустой» — обыскать можно всегда, тратя ход.)
-   * Обыск — на КАЖДОЙ карточке: постоянное присутствие ничего не выдаёт. */
-  {
+  /* «Обыскать» — только там, где это осмысленно: комнатные столы, ручной
+   * бросок монстра 4-62 и карточка со случившейся встречей (флаг карточки).
+   * На оракуле, входе, проходах, лестницах и итоговых карточках кнопки нет —
+   * обыск там бессмыслен. На самих комнатах кнопка есть ВСЕГДА, поэтому по её
+   * наличию нельзя угадать, есть ли в комнате спрятанный клад. */
+  if (searchableCard(card)) {
     const row = el('div', 'next');
     const b = el('button', 'nbtn search', 'обыскать');
     b.title = 'Обыскать комнату или монстра — занимает ход';
