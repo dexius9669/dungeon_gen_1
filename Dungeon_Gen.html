@@ -4456,7 +4456,10 @@ resolveText(text) {
    * searched, there is a 1-in-12 chance.» Пол и потолок так не ищут. */
   t_secret(opts) {
     const s = T['secret-door-search'];
-    const feet = Math.max(0, parseInt(opts.feet, 10) || 0);
+    /* Без явного значения исследуется 10 футов стены: одна попытка и 10
+     * минут — ровно столько, сколько отводят на это за ход. */
+    const raw = parseInt(opts.feet, 10);
+    const feet = Number.isFinite(raw) && raw > 0 ? raw : s.perFeet;
     const tries = Math.floor(feet / s.perFeet);
     const lines = [this.pluralize('Исследовано ' + feet + ' футов стены — это ' + tries + ' попыток по 10 футов.')];
     if (!tries) {
@@ -4804,23 +4807,6 @@ function buildButtons() {
       box.appendChild(b);
     }
   }
-  const feet = el('div', 'group', 'Поиск потайной двери');
-  const wrap = el('div', 'row');
-  const inp = el('input');
-  inp.type = 'number';
-  inp.min = '0';
-  inp.step = '10';
-  inp.value = '30';
-  inp.id = 'secretFeet';
-  inp.title = 'Футов стены: бросок 1-из-12 за каждые 10 футов';
-  const go = el('button', 'tbtn');
-  go.appendChild(el('code', null, 'secret'));
-  go.appendChild(el('span', null, 'стена, футов'));
-  go.onclick = () => doRoll('secret', { feet: inp.value });
-  wrap.appendChild(inp);
-  wrap.appendChild(go);
-  box.appendChild(feet);
-  box.appendChild(wrap);
 }
 
 function bind() {
