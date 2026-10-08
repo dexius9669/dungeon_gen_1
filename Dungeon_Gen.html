@@ -232,6 +232,10 @@ main{flex:1; min-height:0; display:flex; flex-direction:column; background:var(-
       перевод на русский (включая списки слов Booklet 10), переструктурирование
       в генератор, восстановление части таблиц по сканам. Изображения
       оригинала не используются.</p>
+    <p>Дополнительно подключён внешний лист <b>«Motivations &amp; Tactics»</b>
+      (© 2024, Utku Tönel) — мотивы существ и боевые тактики. Он не входит
+      в «Midwest Fantasy Wargame» и используется как вспомогательный
+      инструмент Рефери; лицензия листа не указана.</p>
     <p>Restricted Material — названия произведений, вся графика, а также имена
       и описания монстров и заклинаний из SRD Wizards of the Coast 2000–2003 —
       не используется как брендинг и не воспроизводится. «Dungeons &amp; Dragons»,
@@ -241,7 +245,9 @@ main{flex:1; min-height:0; display:flex; flex-direction:column; background:var(-
       Primeval RPG" (v1), © 2025 Rod Hampton, under CC-BY-4.0. Product names,
       all imagery, and Wizards of the Coast SRD 2000–2003 monster/spell
       names are Restricted and are not reproduced. No source imagery used.
-      Not affiliated with or endorsed by the rights holders.</p>
+      Not affiliated with or endorsed by the rights holders. Also uses the
+      external "Motivations &amp; Tactics" sheet (© 2024, Utku Tönel), whose
+      license is not stated.</p>
     <p><a href="https://creativecommons.org/licenses/by/4.0/legalcode">CC-BY-4.0
       · legalcode</a></p>
   </details>
@@ -450,6 +456,216 @@ const MONSTERS = {
 if (typeof module !== 'undefined') {
   module.exports = { MONSTERS };
 }
+
+},
+"src/data/motivations.js": function (require, module, exports) {
+/* =============================================================================
+ * МОТИВЫ И ТАКТИКА — внешний неофициальный лист «Motivations & Tactics»
+ *
+ * Источник: одностраничный лист «Motivations & Tactics» (автор в метаданных —
+ * Utku Tönel, 2024). НЕ входит в «Midwest Fantasy Wargame: The Primeval RPG»
+ * и в Booklet 4; подключён как дополнительный инструмент Рефери. Лицензия
+ * листа не указана, поэтому атрибуция дана в LEGAL.md и в футере файла.
+ *
+ * Состав:
+ *   MOTIVATIONS — d10, зачем существу вообще что-то нужно.
+ *   TACTICS     — три d8 по категории существа (общая таблица «разумных»).
+ *   CATEGORIES  — справка «какой костью задаётся категория существа».
+ *   MONSTER_CATEGORY — сопоставление имён монстров генератора категориям,
+ *       чтобы карточка монстра сама предлагала нужную тактику. Это
+ *       РЕКОНСТРУКЦИЯ/суждение рефери: в листе есть только шкала
+ *       die → категория, разбора конкретных монстров нет. Не найдено —
+ *       тактика не навязывается.
+ *
+ * Формат строки: { r: [from, to], en, ru } (для мотивов возможен reroll).
+ * ========================================================================== */
+
+'use strict';
+
+const MOTIVATIONS = {
+  ru: 'Мотивы',
+  en: 'Motivations',
+  die: '1d10',
+  rows: [
+    { r: [1, 1], en: 'Safety – lost, hurt, fleeing nearby threat, stranded',
+      ru: 'Безопасность — сбилось с пути, ранено, бежит от близкой угрозы, отрезано' },
+    { r: [2, 3], en: 'Supplies – hunting, hungry, eating, foraging',
+      ru: 'Припасы — охотится, голодно, ест, собирает' },
+    { r: [4, 4], en: 'Comfort – fellow species, warmth, sleep, shelter',
+      ru: 'Комфорт — сородичи, тепло, сон, укрытие' },
+    { r: [5, 5], en: 'Territory – patrolling, tracking, conquering',
+      ru: 'Территория — патрулирует, выслеживает, завоёвывает' },
+    { r: [6, 6], en: 'Social/Emotional – revenge, sadism, anger, grief, zeal, boredom',
+      ru: 'Социальное/эмоции — месть, садизм, гнев, горе, фанатизм, скука' },
+    { r: [7, 7], en: 'Treasure – gold, goods, slaves, magic/magical',
+      ru: 'Сокровище — золото, товары, рабы, магия/магическое' },
+    { r: [8, 8], en: 'Allies – roll again for purpose', reroll: true,
+      ru: 'Союзники — перебросьте ради цели' },
+    { r: [9, 9], en: 'Knowledge – news, directions, lore, spying, map, letter, theories, secrets, books, etc.',
+      ru: 'Знание — новости, направления, предания, шпионаж, карта, письмо, теории, секреты, книги и т. п.' },
+    { r: [10, 10], en: 'Higher needs – independence, freedom, spirituality/pilgrimage, ideology, training, curiosity, wanderlust',
+      ru: 'Высшие потребности — независимость, свобода, духовность/паломничество, идеология, обучение, любопытство, тяга к странствиям' }
+  ]
+};
+
+/* Категории существ. Обе «разумные» ступени (Brute и Humanoid) используют
+ * ОДНУ таблицу тактик «Intelligent Monsters» — так в листе. */
+const CATEGORIES = [
+  { die: '1d4',  key: 'unintelligent', en: 'Unintelligent/Mindless', ru: 'Неразумное/безрассудное (слизи, большинство растений)' },
+  { die: '1d6',  key: 'instinctual',   en: 'Instinctual/Beast',      ru: 'Инстинктивное/зверь (животные, василиски, гидры)' },
+  { die: '1d8',  key: 'intelligent',   en: 'Intelligent/Brute',      ru: 'Разумное/грубое (орки, гоблины, гноллы, огры)' },
+  { die: '1d10', key: 'intelligent',   en: 'Intelligent/Humanoid',   ru: 'Разумное/гуманоидное (люди, эльфы, дворфы, полурослики)' }
+];
+
+/* Ключ категории -> id таблицы тактик в TABLES. */
+const TACTIC_TABLE = {
+  intelligent: 'tactics-intel',
+  instinctual: 'tactics-instinct',
+  unintelligent: 'tactics-unintel'
+};
+
+const TACTICS = {
+  intelligent: {
+    ru: 'Тактика: разумные',
+    en: 'Combat Tactics — Intelligent Monsters',
+    die: '1d8',
+    rows: [
+      { r: [1, 1], en: 'Grab the gold/valuables', ru: 'Схватить золото/ценности' },
+      { r: [2, 2], en: 'Capture the caster/spellbook', ru: 'Захватить заклинателя/книгу заклинаний' },
+      { r: [3, 3], en: 'Sacrifice the cleric to dark gods', ru: 'Принести клирика в жертву тёмным богам' },
+      { r: [4, 4], en: 'Hit & Run – reduce PCs to 50% HP then withdraw', ru: 'Удар и отход — довести отряд до 50% ХП и отступить' },
+      { r: [5, 5], en: 'Loot the party for supply and equipment', ru: 'Обыскать отряд ради припасов и снаряжения' },
+      { r: [6, 6], en: 'Push the PCs out of room/area/path – then guard it', ru: 'Вытеснить отряд из комнаты/зоны/пути — затем охранять' },
+      { r: [7, 7], en: 'Captures the animals/NPCs/Hirelings', ru: 'Захватить животных/НИПов/наёмников' },
+      { r: [8, 8], en: 'Hold position until reinforcements arrive', ru: 'Удерживать позицию до подхода подкрепления' }
+    ]
+  },
+  instinctual: {
+    ru: 'Тактика: инстинктивные',
+    en: 'Combat Tactics — Instinctual Monsters',
+    die: '1d8',
+    rows: [
+      { r: [1, 1], en: 'Attack the nearest NPC/pack animal – drag into the underbush', ru: 'Атаковать ближайшего НИПа/вьючное животное — утащить в кусты' },
+      { r: [2, 2], en: 'Attack the weakest/smallest PC – drag into the underbush', ru: 'Атаковать слабейшего/мельчайшего персонажа — утащить в кусты' },
+      { r: [3, 3], en: 'Hold a specific territory', ru: 'Удерживать определённую территорию' },
+      { r: [4, 4], en: 'Bloody the largest PC in a territorial display', ru: 'Окровавить сильнейшего персонажа в знак защиты территории' },
+      { r: [5, 5], en: 'Fight until hit with magic', ru: 'Драться, пока не получат магией' },
+      { r: [6, 6], en: 'Ravage backpacks for food', ru: 'Разорвать рюкзаки ради еды' },
+      { r: [7, 7], en: 'Hit & Run – next three encounters will be the same creature', ru: 'Удар и отход — следующие три встречи будет то же существо' },
+      { r: [8, 8], en: 'Territorial display, but will yield ground quickly', ru: 'Демонстрация территории, но быстро уступает' }
+    ]
+  },
+  unintelligent: {
+    ru: 'Тактика: неразумные',
+    en: 'Combat Tactics — Unintelligent Monsters',
+    die: '1d8',
+    rows: [
+      { r: [1, 1], en: 'Attack nearest PC', ru: 'Атаковать ближайшего персонажа' },
+      { r: [2, 2], en: 'Consumes one PC then goes dormant or leaves', ru: 'Поглотить одного персонажа, затем впасть в спячку или уйти' },
+      { r: [3, 3], en: 'Probe each PC looking for gold/nectar/metal/stolen jewels', ru: 'Обшаривать каждого персонажа в поисках золота/нектара/металла/украденных самоцветов' },
+      { r: [4, 4], en: 'Attack until PCs issue a command or says "stop" in creature\'s language', ru: 'Атаковать, пока персонажи не отдадут команду или не скажут «стой» на языке существа' },
+      { r: [5, 5], en: 'Moves to inconveniently occupy a space the PCs want to move to/through', ru: 'Неудобно занять место, куда/через которое хотят пройти персонажи' },
+      { r: [6, 6], en: 'Covers of grows around an object of significance for reasons unknown', ru: 'Покрывать или расти вокруг значимого объекта по неизвестной причине' },
+      { r: [7, 7], en: 'Attracted to PC with specific colour/sound/smell/taste/astral aura', ru: 'Привлечено персонажем с определённым цветом/звуком/запахом/вкусом/астральной аурой' },
+      { r: [8, 8], en: 'Attack those who stole something', ru: 'Атаковать тех, кто что-то украл' }
+    ]
+  }
+};
+
+/* Имя монстра -> категория. Ключ — английское имя без скобочных уточнений,
+ * приведённое к нижнему регистру (см. normalizeMonsterName). РЕКОНСТРУКЦИЯ,
+ * certainty: рефери. Неразумные/инстинктивные/разумные расставлены по
+ * примерам листа; неоднозначные существа (Bealuwearg, Mhrent) намеренно
+ * оставлены без категории. */
+const MONSTER_CATEGORY = {
+  /* неразумные (слизи, растения, бездумные) */
+  'pudding': 'unintelligent',
+  'ochre jelly': 'unintelligent',
+  'seaweed, man-eating': 'unintelligent',
+  'elemental': 'unintelligent',
+  'zombie': 'unintelligent',
+  'skeleton': 'unintelligent',
+  'robot': 'unintelligent',
+  /* инстинктивные (звери, чудовища-звери) */
+  'dog': 'instinctual',
+  'lizard, giant': 'instinctual',
+  'spider, giant': 'instinctual',
+  'toad, giant': 'instinctual',
+  'beetle, giant': 'instinctual',
+  'centipede, giant': 'instinctual',
+  'insect, giant': 'instinctual',
+  'scorpion, giant': 'instinctual',
+  'snake, giant': 'instinctual',
+  'roc': 'instinctual',
+  'hog, giant': 'instinctual',
+  'hydra': 'instinctual',
+  'weasel, giant': 'instinctual',
+  'wourme, giant': 'instinctual',
+  'cockatrice': 'instinctual',
+  'manticore': 'instinctual',
+  /* разумные (гуманоиды, грубые, драконы, высшая нежить) */
+  'orc': 'intelligent',
+  'orcs': 'intelligent',
+  'goblin': 'intelligent',
+  'gnoll': 'intelligent',
+  'kobold': 'intelligent',
+  'ogre': 'intelligent',
+  'troll': 'intelligent',
+  'true troll': 'intelligent',
+  'gargoyle': 'intelligent',
+  'giant': 'intelligent',
+  'dragon': 'intelligent',
+  'dragon, cobalt': 'intelligent',
+  'dragon, horrible': 'intelligent',
+  'ghoul': 'intelligent',
+  'wight': 'intelligent',
+  'spectre': 'intelligent',
+  'wraith': 'intelligent',
+  'ghost': 'intelligent',
+  'mummy': 'intelligent',
+  'vampire': 'intelligent',
+  'lycanthrope': 'intelligent',
+  'nrp': 'intelligent',
+  'bandit': 'intelligent',
+  'human scum': 'intelligent',
+  'amazon': 'intelligent',
+  'hoplite': 'intelligent',
+  'hero': 'intelligent',
+  'superhero': 'intelligent',
+  'anti-hero': 'intelligent',
+  'anti-super hero': 'intelligent',
+  'wizard': 'intelligent',
+  'witch': 'intelligent',
+  "jacques d'ombre": 'intelligent',
+  'dwarf': 'intelligent',
+  'elf': 'intelligent',
+  'halfling': 'intelligent',
+  'gnome': 'intelligent',
+  'fairy': 'intelligent',
+  'pixie': 'intelligent',
+  'sprite': 'intelligent'
+};
+
+/* «Beetle, Giant (4 HD)» -> «beetle, giant»; «Lycanthrope (Werewolf)» ->
+ * «lycanthrope»; «NRP (4th-6th level M-U or Warrior)» -> «nrp». */
+function normalizeMonsterName(name) {
+  return String(name || '')
+    .replace(/\s*\(.*?\)\s*$/, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toLowerCase();
+}
+
+/* Английское имя монстра -> id таблицы тактик или null (не навязываем). */
+function tacticsFor(name) {
+  const key = MONSTER_CATEGORY[normalizeMonsterName(name)];
+  return key ? TACTIC_TABLE[key] : null;
+}
+
+module.exports = {
+  MOTIVATIONS, TACTICS, CATEGORIES, TACTIC_TABLE, MONSTER_CATEGORY,
+  normalizeMonsterName, tacticsFor
+};
 
 },
 "src/data/oddities.js": function (require, module, exports) {
@@ -3155,6 +3371,7 @@ const {
   ADV_VERB: O_ADVVERB, PREP: O_PREP, PREP_ARTICLE: O_PREPART, SPECIALTY: O_SPEC
 } = require('src/data/oracles.js');
 const { TRAPS, TRAP_ORDER } = require('src/data/traps.js');
+const { MOTIVATIONS, TACTICS, tacticsFor } = require('src/data/motivations.js');
 
 const SHAPES = {
   square: 'квадрат', rect: 'прямоугольник', diamond: 'ромб', octagon: 'восьмиугольник',
@@ -3189,6 +3406,12 @@ const TABLES = [
 
   { id: '4-62', group: 'Содержимое' },
   { id: '4-63', group: 'Содержимое' },
+
+  /* внешний лист «Motivations & Tactics» — не Booklet 4 */
+  { id: 'motivation', group: 'Мотивы', die: '1d10' },
+  { id: 'tactics-intel', group: 'Мотивы', die: '1d8' },
+  { id: 'tactics-instinct', group: 'Мотивы', die: '1d8' },
+  { id: 'tactics-unintel', group: 'Мотивы', die: '1d8' },
 
   { id: 'oracle-an', group: 'Оракул' },
   { id: 'oracle-vn', group: 'Оракул' },
@@ -3233,6 +3456,10 @@ const RU = {
   'loot': 'Обыскать',
   'light': 'Свет',
   '4-63': 'Сокровище по уровню',
+  'motivation': 'Мотив существа',
+  'tactics-intel': 'Тактика: разумные',
+  'tactics-instinct': 'Тактика: инстинктивные',
+  'tactics-unintel': 'Тактика: неразумные',
   'oracle': 'Оракул',
   'oracle-an': 'Описание: прилагательное · существительное',
   'oracle-vn': 'Действие: глагол · существительное',
@@ -3265,6 +3492,10 @@ const RU = {
     'stair-surround': 'окружение',
     loot: 'обыск',
     light: 'свет',
+    motivation: 'мотив',
+    'tactics-intel': 'тактика разум.',
+    'tactics-instinct': 'тактика инст.',
+    'tactics-unintel': 'тактика нераз.',
     oracle: 'оракул',
     'oracle-an': 'описание',
     'oracle-vn': 'действие',
@@ -3379,7 +3610,8 @@ function cloneCard(c) {
     action: c.action || null,
     chosen: c.chosen || null,
     halt: c.halt || false,
-    search: searchableCard(c)
+    search: searchableCard(c),
+    support: c.support ? c.support.slice() : null
   };
 }
 
@@ -3493,6 +3725,7 @@ class Flow {
     this.cards = [];
     this.state = defaultState();
     this._encounterThisCard = false;
+    this._encounterSupport = null;
     if (opts.cards) this.restore(opts);
   }
 
@@ -3511,6 +3744,7 @@ class Flow {
     const meta = TABLES.find(t => t.id === id) || {};
     this.rng.phase = meta.group || '';
     this._encounterThisCard = false;
+    this._encounterSupport = null;
     const out = produce() || {};
     const rolls = this.rng.log.slice(mark).map(r => ({ f: r.formula, d: r.detail, t: r.total }));
     const card = {
@@ -3538,7 +3772,9 @@ class Flow {
       /* можно ли обыскать на этой карточке: комнатные столы и 4-62 плюс
        * блуждающая встреча, случившаяся именно в этой карточке. Флаг хранится
        * в карточке (а не считается в UI), чтобы переживать save/load. */
-      search: !!SEARCH_TABLES[id] || !!this._encounterThisCard
+      search: !!SEARCH_TABLES[id] || !!this._encounterThisCard,
+      /* кнопки-подсказки «мотив/тактика» на карточке монстра (внешний лист) */
+      support: out.support || this._encounterSupport || null
     };
     this.cards.push(card);
     return card;
@@ -4038,7 +4274,8 @@ resolveText(text) {
         (diff === 'same' ? '' : diff === 'easier' ? ' — слабее обычного' : ' — сильнее обычного'),
         this._reactionLine()],
       next: this.afterRoom(),
-      halt: true
+      halt: true,
+      support: this._supportFor(mon[0])
     };
   }
 
@@ -4080,7 +4317,8 @@ resolveText(text) {
       const p = this.rng.pick(MONSTERS.verifiedPool, 'Имя из общего пула');
       return {
         lines: [p.value.ru + ' ×1'],
-        warn: 'уровень ' + L + ' в буклете не восстановлен: имя взять из общего пула и заменить'
+        warn: 'уровень ' + L + ' в буклете не восстановлен: имя взять из общего пула и заменить',
+        support: this._supportFor(p.value.en)
       };
     }
     const lv = MONSTERS.levels[L];
@@ -4088,7 +4326,7 @@ resolveText(text) {
     const row = pickRow(lv.rows, r.total);
     const lines = [row.m.ru + (row.qty ? ' ×' + row.qty : '')];
     if (row.qty === 1) lines.push('(кол-во 1) — HTK можно уменьшить или увеличить вдвое.');
-    return { lines, warn: null };
+    return { lines, warn: null, support: this._supportFor(row.m.en) };
   }
 
   t_4_62() { return this._monsterPick(); }
@@ -4167,6 +4405,8 @@ resolveText(text) {
     this.state.monsterLoot = chanceOf(this.rng, { n: 6, ok: 1 }, 'У бродячего монстра есть добыча? (1-из-6)').ok;
     /* встреча произошла на текущей карточке: там же разрешаем обыск */
     this._encounterThisCard = true;
+    /* и подсказки «мотив/тактика» для повстречавшегося монстра */
+    this._encounterSupport = this._supportFor(mon[0]);
     const head = mon[1] + (num.n > 1 ? ' ×' + num.n : '') + ' (группа ' + GROUP_ROMAN[g] +
       (diff === 'same' ? '' : diff === 'easier' ? ', легче' : ', сложнее') + ')';
     return [head,
@@ -4260,6 +4500,40 @@ resolveText(text) {
      * строка-пометка читалась как второй предмет, поэтому убрана. */
     const lines = [this.resolveText(row.item.ru)];
     return { lines, warn: this.level > 6 ? 'уровень ' + this.level + ' не восстановлен: взяты значения 6-го уровня' : null };
+  }
+
+  /* --- Мотивы и тактика (внешний лист) ---------------------------------- *
+   * Не из Booklet 4. Выдаются по требованию; карточка монстра подсказывает
+   * нужную тактику через support. Строка 8 мотивов («Союзники») — переброс. */
+  t_motivation() {
+    let r, row, tries = 0;
+    do {
+      r = this.rng.roll(MOTIVATIONS.die, 'Мотив существа · ' + MOTIVATIONS.die);
+      row = pickRow(MOTIVATIONS.rows, r.total);
+      tries++;
+    } while (row.reroll && tries < 20);
+    const lines = ['Мотив (' + MOTIVATIONS.die + '=' + r.total + '): ' + row.ru];
+    if (row.reroll) lines.push('«Союзники» выпадали подряд — оставлено как есть, цель за мастером.');
+    return { lines };
+  }
+
+  _tactics(kind) {
+    const tbl = TACTICS[kind];
+    const r = this.rng.roll(tbl.die, tbl.ru + ' · ' + tbl.die);
+    const row = pickRow(tbl.rows, r.total);
+    return { lines: [tbl.ru + ' (' + tbl.die + '=' + r.total + '): ' + row.ru] };
+  }
+  t_tactics_intel() { return this._tactics('intelligent'); }
+  t_tactics_instinct() { return this._tactics('instinctual'); }
+  t_tactics_unintel() { return this._tactics('unintelligent'); }
+
+  /* Кнопки-подсказки на карточке монстра: мотив всегда, тактика — по
+   * категории (если распознана), иначе все три на выбор мастера. */
+  _supportFor(enName) {
+    const t = tacticsFor(enName);
+    return t
+      ? ['motivation', t]
+      : ['motivation', 'tactics-intel', 'tactics-instinct', 'tactics-unintel'];
   }
 
   /* --- Лестницы --------------------------------------------------------- */
@@ -4782,7 +5056,7 @@ if (typeof module !== 'undefined') {
 const { Flow, TABLES, RU, oracleFor, searchableCard } = require('src/engine/flow.js');
 const T = require('src/data/tables.js');
 
-const GROUPS = ['Вход', 'Проход', 'Комнаты', 'Лестницы', 'Содержимое', 'Прочее', 'Оракул'];
+const GROUPS = ['Вход', 'Проход', 'Комнаты', 'Лестницы', 'Содержимое', 'Мотивы', 'Прочее', 'Оракул'];
 
 const CHAIN_DELAY = 600;   /* мс между карточками, как в эталоне */
 /* Предохранитель от бесконечного цикла проходов (4-52↔4-54). Должен быть
@@ -4811,6 +5085,7 @@ function category(table) {
   if (['4-55', '4-56', '4-57', '4-58', '4-59', 'room-exits'].indexOf(table) !== -1) return 'room-box';
   if (['4-51', '4-52', '4-53', '4-54', 'room-find', 'collision'].indexOf(table) !== -1) return 'passage-box';
   if (table === '4-62') return 'monster-box';
+  if (['motivation', 'tactics-intel', 'tactics-instinct', 'tactics-unintel'].indexOf(table) !== -1) return 'monster-box';
   if (table === '4-63') return 'treasure-box';
   if (['oddity', 'trap', 'secret'].indexOf(table) !== -1) return 'trick-box';
   if (table === 'oracle' || table.indexOf('oracle-') === 0) return 'trick-box';
@@ -4844,7 +5119,7 @@ function buildButtons() {
       const b = el('button', 'tbtn');
       b.appendChild(el('code', null, t.id));       /* первый child — id: так его ищут тесты */
       b.appendChild(el('span', null, RU[t.id] || t.id));
-      b.appendChild(el('span', 'tdie', (T[t.id] && T[t.id].die) || ''));
+      b.appendChild(el('span', 'tdie', (t.die || (T[t.id] && T[t.id].die)) || ''));
       b.onclick = () => doRoll(t.id);
       box.appendChild(b);
     }
@@ -5056,6 +5331,19 @@ function draw(card) {
     b.title = 'Обыскать комнату или монстра — занимает ход';
     b.onclick = () => doRoll('loot');
     row.appendChild(b);
+    c.appendChild(row);
+  }
+
+  /* Подсказки внешнего листа «Motivations & Tactics»: мотив и тактика. Текст
+   * кнопки — id стола, как у «далее вероятно»; подпись — в title. */
+  if (card.support && card.support.length) {
+    const row = el('div', 'next');
+    for (const id of card.support) {
+      const b = el('button', 'nbtn support', id);
+      b.title = RU[id] || id;
+      b.onclick = () => doRoll(id);
+      row.appendChild(b);
+    }
     c.appendChild(row);
   }
 

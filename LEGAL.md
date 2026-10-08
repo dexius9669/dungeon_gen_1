@@ -22,6 +22,14 @@ Booklet 10 (Oracular Tables) и приложение «Stocking Monsters» — �
 тот же продукт (Stocking Monsters, по примечанию автора, восходит к черновику
 правил Arneson v. Gygax).
 
+**Внешний лист.** Дополнительно подключён одностраничный лист
+**«Motivations & Tactics»** (© 2024, Utku Tönel) — мотивы существ и боевые
+тактики. Он не входит в «Midwest Fantasy Wargame: The Primeval RPG»; лицензия
+листа не указана, он используется как вспомогательный инструмент Рефери с
+указанием автора. Разнесение конкретных монстров по категориям (разумные/
+инстинктивные/неразумные) в листе отсутствует — это реконструкция, её всегда
+можно переопределить.
+
 **Изменения.** Материал изменён: переведён на русский язык (включая списки слов
 Booklet 10), переструктурирован в интерактивный генератор бросков, часть таблиц
 восстановлена по сканам (4-54, 4-60, 4-62, 4-63), добавлены оформление и
@@ -67,6 +75,13 @@ Booklet 4 (Random Dungeon), Booklet 2 (Tricks and Traps), Booklet 10
 (Oracular Tables), and the "Stocking Monsters" appendix are used; all are part
 of the same product (Stocking Monsters descends, per the author's note, from the
 Arneson v. Gygax draft ruleset).
+
+**External sheet.** The generator additionally uses the one-page sheet
+**"Motivations & Tactics"** (© 2024, Utku Tönel) for creature motivations and
+combat tactics. It is not part of "Midwest Fantasy Wargame: The Primeval RPG";
+no license is stated for it, so it is used as a referee's aid with attribution.
+The sheet's die-to-category scale does not assign individual monsters to
+categories — that mapping is a reconstruction and can always be overridden.
 
 **Changes.** The material has been modified: translated into Russian (including
 the Booklet 10 word lists), restructured into an interactive dice-roller, with
