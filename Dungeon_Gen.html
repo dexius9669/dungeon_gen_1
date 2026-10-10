@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Сборка: 2026-10-10+168e02f — по этой метке сверяют опубликованный файл с исходником -->
 <title>Dungeon_Gen — генератор подземелья</title>
 <style>
 /* Оформление повторяет эталон Dungeon_Gen_DB: почти чёрный фон, серые панели,
@@ -3380,59 +3381,80 @@ const SHAPES = {
   staggered: 'смещённая', radiating: 'радиальная'
 };
 
-/* Кнопки. group — раздел сайдбара. next — ЗАПАСНОЙ вариант подсказки;
- * основной считает hintFor() из состояния партии. */
+/* Кнопки. group — раздел сайдбара, cat — категория цвета карточки
+ * (room/passage/monster/treasure/trick, пусто = нейтральная): раньше список
+ * соответствий жил в UI и его приходилось править отдельной правкой.
+ * next — ЗАПАСНОЙ вариант подсказки; основной считает hintFor() из состояния.
+ * Порядок GROUP_ORDER (а не порядок строк здесь) задаёт порядок разделов
+ * в сайдбаре; «Оракул» — последним. */
 const TABLES = [
-  { id: '4-51', group: 'Вход' },
+  { id: '4-51', group: 'Вход', cat: 'passage' },
   { id: 'entry', group: 'Вход' },
 
-  { id: '4-52', group: 'Проход' },
-  { id: '4-53', group: 'Проход' },
-  { id: '4-54', group: 'Проход' },
-  { id: 'room-find', group: 'Проход' },
-  { id: 'collision', group: 'Проход' },
+  { id: '4-52', group: 'Проход', cat: 'passage' },
+  { id: '4-53', group: 'Проход', cat: 'passage' },
+  { id: '4-54', group: 'Проход', cat: 'passage' },
+  { id: 'room-find', group: 'Проход', cat: 'passage' },
+  { id: 'collision', group: 'Проход', cat: 'passage' },
 
-  { id: '4-55', group: 'Комнаты' },
-  { id: '4-56', group: 'Комнаты' },
-  { id: '4-57', group: 'Комнаты' },
-  { id: 'room-exits', group: 'Комнаты' },
-  { id: '4-58', group: 'Комнаты' },
-  { id: '4-59', group: 'Комнаты' },
+  { id: '4-55', group: 'Комнаты', cat: 'room' },
+  { id: '4-56', group: 'Комнаты', cat: 'room' },
+  { id: '4-57', group: 'Комнаты', cat: 'room' },
+  { id: 'room-exits', group: 'Комнаты', cat: 'room' },
+  { id: '4-58', group: 'Комнаты', cat: 'room' },
+  { id: '4-59', group: 'Комнаты', cat: 'room' },
 
   { id: '4-60', group: 'Лестницы' },
   { id: 'stairway', group: 'Лестницы' },
   { id: 'stair-general', group: 'Лестницы' },
   { id: 'stair-surround', group: 'Лестницы' },
 
-  { id: '4-62', group: 'Содержимое' },
-  { id: '4-63', group: 'Содержимое' },
+  { id: '4-62', group: 'Содержимое', cat: 'monster' },
+  { id: '4-63', group: 'Содержимое', cat: 'treasure' },
 
   /* внешний лист «Motivations & Tactics» — не Booklet 4 */
-  { id: 'motivation', group: 'Мотивы', die: '1d10' },
-  { id: 'tactics-intel', group: 'Мотивы', die: '1d8' },
-  { id: 'tactics-instinct', group: 'Мотивы', die: '1d8' },
-  { id: 'tactics-unintel', group: 'Мотивы', die: '1d8' },
+  { id: 'motivation', group: 'Мотивы', cat: 'monster', die: '1d10' },
+  { id: 'tactics-intel', group: 'Мотивы', cat: 'monster', die: '1d8' },
+  { id: 'tactics-instinct', group: 'Мотивы', cat: 'monster', die: '1d8' },
+  { id: 'tactics-unintel', group: 'Мотивы', cat: 'monster', die: '1d8' },
 
-  { id: 'oracle-an', group: 'Оракул' },
-  { id: 'oracle-vn', group: 'Оракул' },
-  { id: 'oracle-adv', group: 'Оракул' },
-  { id: 'oracle-q', group: 'Оракул' },
-  { id: 'oracle-prep', group: 'Оракул' },
-  { id: 'oracle-color', group: 'Оракул' },
-  { id: 'oracle-troops', group: 'Оракул' },
-  { id: 'oracle-weapon', group: 'Оракул' },
-  { id: 'oracle-armor', group: 'Оракул' },
-  { id: 'oracle-spell', group: 'Оракул' },
-  { id: 'oracle-artillery', group: 'Оракул' },
-  { id: 'oracle-cover', group: 'Оракул' },
-  { id: 'oracle-culture', group: 'Оракул' },
-  { id: 'oracle-personage', group: 'Оракул' },
-  { id: 'oracle-monster', group: 'Оракул' },
+  { id: 'oracle-an', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-vn', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-adv', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-q', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-prep', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-color', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-troops', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-weapon', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-armor', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-spell', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-artillery', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-cover', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-culture', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-personage', group: 'Оракул', cat: 'trick' },
+  { id: 'oracle-monster', group: 'Оракул', cat: 'trick' },
   { id: 'wander', group: 'Прочее' },
-  { id: 'oddity', group: 'Прочее' },
-  { id: 'trap', group: 'Прочее' },
-  { id: 'secret', group: 'Прочее' }
+  { id: 'oddity', group: 'Прочее', cat: 'trick' },
+  { id: 'trap', group: 'Прочее', cat: 'trick' },
+  { id: 'secret', group: 'Прочее', cat: 'trick' }
 ];
+
+const GROUP_ORDER = ['Вход', 'Проход', 'Комнаты', 'Лестницы', 'Содержимое', 'Мотивы', 'Прочее', 'Оракул'];
+
+/* Кость кнопки берём из данных таблицы, если стол её не задал сам:
+ * раньше этот фолбэк знал только UI. */
+for (const t of TABLES) {
+  if (!t.die && T[t.id] && T[t.id].die) t.die = T[t.id].die;
+}
+
+/* Категория цвета карточки по id стола. Для псевдо-столов, которых нет в
+ * TABLES (карточка «oracle» из oraclePreset, «light», «loot»), — правило:
+ * оракул фиолетовый, служебные карточки нейтральные. */
+function categoryOf(id) {
+  if (id === 'oracle' || String(id).indexOf('oracle-') === 0) return 'trick';
+  const t = TABLES.find(x => x.id === id);
+  return t && t.cat ? t.cat : '';
+}
 
 const RU = {
   '4-51': 'Начальное направление прохода',
@@ -4796,6 +4818,9 @@ resolveText(text) {
   }
 
   /* --- сохранение -------------------------------------------------------- */
+  /* Формат сохранения: /1 — ранние версии (без entryRoom и др.), /2 — текущий.
+   * Файл более нового формата читаться не должен: молчаливое чтение потеряло бы
+   * неизвестные поля так же, как когда-то /1. */
   toJSON() {
     return { format: 'dungeon-flow/2', level: this.level, state: this.state, rng: this.rng.toJSON(), cards: this.cards };
   }
@@ -4803,6 +4828,11 @@ resolveText(text) {
   restore(data) {
     if (!data || !Array.isArray(data.cards)) {
       throw new TypeError('restore() ждёт полный toJSON(): {level, state, rng, cards}');
+    }
+    if (typeof data.format === 'string' && data.format.indexOf('dungeon-flow/') === 0 &&
+        +data.format.slice('dungeon-flow/'.length) > 2) {
+      throw new TypeError('сохранение формата ' + data.format +
+        ' новее этой версии генератора — обновите страницу/файл');
     }
     this.setLevel(data.level);
     /* Копия, а не ссылка: иначе resolve первой восстановленной партии допишет
@@ -4830,7 +4860,7 @@ resolveText(text) {
   }
 }
 
-module.exports = { TABLES, RU, SHAPES, pickRow, rollTable, roomSize, Flow, ORACLE_PRESET, oracleFor, searchableCard, SEARCH_TABLES };
+module.exports = { TABLES, GROUP_ORDER, RU, SHAPES, pickRow, rollTable, roomSize, Flow, ORACLE_PRESET, oracleFor, searchableCard, SEARCH_TABLES, categoryOf };
 },
 "src/engine/rng.js": function (require, module, exports) {
 /* =============================================================================
@@ -5053,10 +5083,8 @@ if (typeof module !== 'undefined') {
 
 'use strict';
 
-const { Flow, TABLES, RU, oracleFor, searchableCard } = require('src/engine/flow.js');
+const { Flow, TABLES, GROUP_ORDER, RU, oracleFor, searchableCard, categoryOf } = require('src/engine/flow.js');
 const T = require('src/data/tables.js');
-
-const GROUPS = ['Вход', 'Проход', 'Комнаты', 'Лестницы', 'Содержимое', 'Мотивы', 'Прочее', 'Оракул'];
 
 const CHAIN_DELAY = 600;   /* мс между карточками, как в эталоне */
 /* Предохранитель от бесконечного цикла проходов (4-52↔4-54). Должен быть
@@ -5080,17 +5108,42 @@ function el(tag, cls, text) {
   return n;
 }
 
-/* Категория карточки → цвет левой грани, как в Dungeon_Gen_DB. */
-function category(table) {
-  if (['4-55', '4-56', '4-57', '4-58', '4-59', 'room-exits'].indexOf(table) !== -1) return 'room-box';
-  if (['4-51', '4-52', '4-53', '4-54', 'room-find', 'collision'].indexOf(table) !== -1) return 'passage-box';
-  if (table === '4-62') return 'monster-box';
-  if (['motivation', 'tactics-intel', 'tactics-instinct', 'tactics-unintel'].indexOf(table) !== -1) return 'monster-box';
-  if (table === '4-63') return 'treasure-box';
-  if (['oddity', 'trap', 'secret'].indexOf(table) !== -1) return 'trick-box';
-  if (table === 'oracle' || table.indexOf('oracle-') === 0) return 'trick-box';
-  return '';
+/* --- автосохранение и адрес партии --------------------------------------- *
+ * Партия живёт в памяти вкладки: закрыл — потерял. Поэтому состояние
+ * сохраняется в localStorage после каждой карточки и восстанавливается при
+ * открытии. Файловое «Сохранить/Загрузить» остаётся для архива и переноса.
+ * localStorage/history могут отсутствовать (приватный режим, mock-DOM тестов):
+ * тогда всё это молча отключается, остальной интерфейс работает как раньше. */
+const LS_KEY = 'dungeon-gen/autosave';
+
+function lsGet() {
+  try { return (typeof localStorage !== 'undefined') ? localStorage.getItem(LS_KEY) : null; }
+  catch (e) { return null; }
 }
+function lsSet(v) {
+  try { if (typeof localStorage !== 'undefined') localStorage.setItem(LS_KEY, v); } catch (e) {}
+}
+function lsDel() {
+  try { if (typeof localStorage !== 'undefined') localStorage.removeItem(LS_KEY); } catch (e) {}
+}
+
+/* Зерно и уровень — в адрес: ссылка на воспроизводимую партию копируется из
+ * адресной строки без экспорта файла. Берём ФАКТИЧЕСКОЕ зерно партии (оно
+ * может быть сгенерировано, а не введено). */
+function syncUrl() {
+  try {
+    if (typeof history === 'undefined' || !history.replaceState) return;
+    const seed = (state.flow && state.flow.rng) ? state.flow.rng.rawSeed : state.seed;
+    const q = new URLSearchParams();
+    if (seed !== undefined && seed !== null && String(seed) !== '') q.set('seed', String(seed));
+    if (state.level && state.level !== 1) q.set('level', String(state.level));
+    const s = q.toString();
+    history.replaceState(null, '', s ? '?' + s : location.pathname);
+  } catch (e) {}
+}
+
+/* Категория карточки → класс цвета левой грани (данные стола + суффикс -box). */
+function category(table) { return categoryOf(table) ? categoryOf(table) + '-box' : ''; }
 
 /* --- инициализация ------------------------------------------------------- */
 function init() {
@@ -5100,9 +5153,37 @@ function init() {
   $('level').value = state.level;
   $('seed').value = state.seed;
   buildButtons();
-  newRun(state.seed);
   bind();
-  log('Открыт журнал бросков. Выберите таблицу — или начните с 4-51, вход в подземелье.', 'hint');
+  /* Явные параметры адреса важнее автосохранения: ссылка «проиграть эту
+   * партию с этого зерна» должна открывать свежий забег. */
+  const fromUrl = !!(params.get('seed') || params.get('level'));
+  if (!fromUrl && resumeSaved()) {
+    log('Открыт журнал бросков. Восстановлена партия прошлого сеанса — «Начать» запустит новую.', 'hint');
+  } else {
+    newRun(state.seed);
+    log('Открыт журнал бросков. Выберите таблицу — или начните с 4-51, вход в подземелье.', 'hint');
+  }
+}
+
+/* Поднять автосохранение прошлого сеанса. false — сохранения нет или оно
+ * битое (тогда удаляем, чтобы не мешать следующему запуску). */
+function resumeSaved() {
+  const raw = lsGet();
+  if (!raw) return false;
+  let flow;
+  try {
+    flow = new Flow({});
+    flow.restore(JSON.parse(raw));
+  } catch (e) { lsDel(); return false; }
+  state.flow = flow;
+  state.level = flow.level;
+  state.seed = flow.rng.rawSeed;
+  $('level').value = state.level;
+  $('seed').value = state.seed;
+  for (const c of flow.cards) draw(c);
+  if ($('seedNow')) $('seedNow').textContent = String(flow.rng.rawSeed);
+  log('Уровень ' + state.level + '. Зерно: ' + flow.rng.rawSeed, 'hint');
+  return true;
 }
 
 /* Кнопки строятся из TABLES, чтобы новый стол в буклете не требовал правок
@@ -5111,7 +5192,7 @@ function init() {
 function buildButtons() {
   const box = $('tables');
   box.innerHTML = '';
-  for (const g of GROUPS) {
+  for (const g of GROUP_ORDER) {
     const items = TABLES.filter(t => t.group === g);
     if (!items.length) continue;
     box.appendChild(el('div', 'group', g));
@@ -5119,7 +5200,7 @@ function buildButtons() {
       const b = el('button', 'tbtn');
       b.appendChild(el('code', null, t.id));       /* первый child — id: так его ищут тесты */
       b.appendChild(el('span', null, RU[t.id] || t.id));
-      b.appendChild(el('span', 'tdie', (t.die || (T[t.id] && T[t.id].die)) || ''));
+      b.appendChild(el('span', 'tdie', t.die || ''));
       b.onclick = () => doRoll(t.id);
       box.appendChild(b);
     }
@@ -5364,6 +5445,9 @@ function draw(card) {
   cardNodes[card.n] = c;
   $('count').textContent = state.flow.cards.length;
   updateLight();
+  /* каждая карточка меняет состояние партии — сохраняем сразу после неё */
+  lsSet(JSON.stringify(state.flow.toJSON()));
+  syncUrl();
 }
 
 /* Оракул по требованию: для стола карточки — свой пресет (комната/проход/...).
@@ -5422,6 +5506,9 @@ function newRun(seed, level) {
   updateLight();
   log('Уровень ' + state.level + '. Зерно: ' + state.flow.rng.rawSeed, 'hint');
   log('Вход в подземелье — таблица 4-51. Дальше решаете вы.', 'hint');
+  /* свежая партия сразу вытесняет автосохранение прошлой */
+  lsSet(JSON.stringify(state.flow.toJSON()));
+  syncUrl();
 }
 
 /* --- сохранение ---------------------------------------------------------- */
@@ -5469,6 +5556,7 @@ function doLoad() {
         for (const c of state.flow.cards) draw(c);
         $('count').textContent = state.flow.cards.length;
         updateLight();
+        syncUrl();
         log('Партия загружена.', 'hint');
       } catch (e) {
         log('Не удалось прочитать файл: ' + e.message, 'err');
